@@ -6,15 +6,30 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-<AutoCompleteTextView
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_margin="20dp"
-    android:id="@+id/addList"
-    android:layout_height="60dp"/>
+    android:layout_margin="10dp"
+    android:layout_height="70dp">
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:id="@+id/addList"
+        android:shadowColor="@color/cardview_dark_background"
+        android:layout_height="60dp"/>
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/add"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/addbtn"
+        />
+</RelativeLayout>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="470dp"
+        android:layout_height="300dp"
         android:id="@+id/shoppingList"
+        android:divider="@null"
         />
     <Button
         android:layout_width="wrap_content"

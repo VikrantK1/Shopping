@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".shopping_fire_data_set">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".shopping_fire_data_set">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/editround"
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:hint="Product Name"
+        android:textSize="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_margin="15dp"
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:background="@drawable/editround"
+        android:hint="Distance from counter"
+        android:textSize="30dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="198dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/editround"
+        android:textCursorDrawable="@drawable/cursorcolor"
+        android:gravity="top|left"
+        android:hint="Description and location"
+        android:inputType="textMultiLine"
+        android:lines="6"
+
+        android:minLines="3"
+        android:textSize="30dp" />
+
+
+</LinearLayout>
+    </ScrollView>

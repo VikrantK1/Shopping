@@ -3,6 +3,7 @@ package com.creater.shopping;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class ArrAdapter extends ArrayAdapter {
         builder=new AlertDialog.Builder(mcontext);
         builder.setIcon(R.drawable.delete);
         builder.setCancelable(false);
-        builder.setTitle("Delete").setMessage("Do you want to Delete "+data.get(position).toUpperCase()+"from list")
+        builder.setTitle("Delete").setMessage("Do you want to Delete from list")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -47,17 +48,18 @@ public class ArrAdapter extends ArrayAdapter {
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-               builder.setCancelable(true);
+
             }
         });
-        final AlertDialog dialog=builder.create();
         cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
+                 AlertDialog dialog=builder.create();
                 dialog.show();
                 return true;
             }
         });
+
         return v;
     }
 }
