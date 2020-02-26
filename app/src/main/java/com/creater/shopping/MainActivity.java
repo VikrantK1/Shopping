@@ -51,4 +51,8 @@ ArrayList<String> shopping=new ArrayList<>();
             }
         });
     }
+    public void next()
+    {
+
+    }
 }
