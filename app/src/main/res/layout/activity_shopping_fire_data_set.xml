@@ -20,32 +20,42 @@
         android:layout_height="67dp"
         android:layout_margin="15dp"
         android:background="@drawable/editround"
-        android:textCursorDrawable="@drawable/cursorcolor"
-        android:id="@+id/nameOfProduct"
+        android:textColor="#2196F3"
         android:hint="Product Name"
-
+        android:paddingStart="10dp"
+        android:theme="@style/EditTextStyle"
+        android:id="@+id/nameOfProduct"
+        android:textColorHint="#649DCA"
         android:textSize="30dp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="63dp"
         android:layout_margin="15dp"
-        android:textCursorDrawable="@drawable/cursorcolor"
+        android:paddingStart="10dp"
         android:background="@drawable/editround"
         android:id="@+id/distanceFromCounter"
+        android:textColor="#2196F3"
+        android:theme="@style/EditTextStyle"
         android:hint="Distance from counter"
+        android:textColorHint="#649DCA"
+        android:inputType="numberDecimal"
         android:textSize="30dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="198dp"
         android:layout_margin="15dp"
+        android:paddingTop="5dp"
         android:background="@drawable/editround"
         android:id="@+id/descriptionOfProduct"
-        android:textCursorDrawable="@drawable/cursorcolor"
+        android:paddingStart="10dp"
         android:gravity="top|left"
+        android:theme="@style/EditTextStyle"
         android:hint="Description and location"
+        android:textColor="#2196F3"
         android:inputType="textMultiLine"
+        android:textColorHint="#649DCA"
         android:lines="6"
         android:minLines="3"
         android:textSize="30dp" />

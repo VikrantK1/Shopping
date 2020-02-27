@@ -1,30 +1,46 @@
 package com.creater.shopping;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.creater.shopping.util.ArrAdapter;
+import com.creater.shopping.util.ListCreating;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 AutoCompleteTextView text;
 Button submit;
-ListView shopinglist;
+RecyclerView shopinglist;
 String [] list={"vikr","vata","meta","mata","sata"};
-ArrAdapter arrAdapter;
+ArrayList<String> suggestionList=new ArrayList<>();
+ListCreating arrAdapter;
 ImageView addbtn;
 ArrayList<String> shopping=new ArrayList<>();
+FirebaseFirestore db34=FirebaseFirestore.getInstance();
+ArrayAdapter<String> ad;
+backgroundTask task=new backgroundTask();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,21 +48,54 @@ ArrayList<String> shopping=new ArrayList<>();
         initilation();
         editTextFun();
         addToList();
+        SubmitList();
+        task.execute();
     }
     public void initilation()
     {
         text=findViewById(R.id.addList);
-        submit=findViewById(R.id.submit);
+        submit=findViewById(R.id.submitM);
         shopinglist=findViewById(R.id.shoppingList);
         addbtn=findViewById(R.id.addbtn);
-        arrAdapter=new ArrAdapter(MainActivity.this,shopping);
+        arrAdapter=new ListCreating(MainActivity.this,shopping);
+        shopinglist.setLayoutManager(new LinearLayoutManager(this));
         shopinglist.setAdapter(arrAdapter);
+
     }
     public void editTextFun()
     {
-        ArrayAdapter<String> ad=new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,android.R.id.text1,list);
+        ad=new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,android.R.id.text1,suggestionList);
         text.setAdapter(ad);
         text.setThreshold(1);
+    }
+    class  backgroundTask extends AsyncTask<Void,Integer,String>
+    {
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            db34.collection("Shopping list").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (DocumentSnapshot doc:task.getResult()
+                         ) {
+                        suggestionList.add(doc.getString("ProductName"));
+                        ad.notifyDataSetChanged();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(),"Check Internet Connection",Toast.LENGTH_SHORT).show();
+                }
+            });
+            return "Complete";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Toast.makeText(getApplicationContext(),"Complete",Toast.LENGTH_SHORT).show();
+        }
     }
     public void addToList()
     {
@@ -56,7 +105,6 @@ ArrayList<String> shopping=new ArrayList<>();
             if (!shopping.contains(text.getText().toString()))
             {
                 shopping.add(text.getText().toString());
-                Toast.makeText(getApplicationContext(),"Add to Shopping list",Toast.LENGTH_SHORT).show();
                 arrAdapter.notifyDataSetChanged();
             }
             else
@@ -68,5 +116,20 @@ ArrayList<String> shopping=new ArrayList<>();
         }
 
     });
+    }
+
+
+
+    public void SubmitList()
+    {
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(MainActivity.this,final_list.class);
+                intent.putStringArrayListExtra("ShoppingList",shopping);
+                startActivity(intent);
+            }
+        });
     }
 }

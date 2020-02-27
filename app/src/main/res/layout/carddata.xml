@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<androidx.cardview.widget.CardView
+    android:layout_width="200dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="7dp"
+    android:layout_height="200dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/dashImage"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="-20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dashImage"
+            android:layout_centerHorizontal="true"
+            android:text="dummy"
+
+            android:textSize="30dp" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+</LinearLayout>

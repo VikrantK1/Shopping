@@ -1,4 +1,4 @@
-package com.creater.shopping;
+package com.creater.shopping.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,18 +14,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
+import com.creater.shopping.R;
+
 import java.util.ArrayList;
 
 public class ArrAdapter extends ArrayAdapter {
     ArrayList<String> data;
     Context mcontext;
     AlertDialog.Builder builder;
+    AlertDialog dialog;
     public ArrAdapter(@NonNull Context context, ArrayList<String> objects) {
-        super(context,R.layout.shopinglist, objects);
+        super(context, R.layout.shopinglist, objects);
         this.data=objects;
         this.mcontext=context;
     }
-
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -42,7 +44,7 @@ public class ArrAdapter extends ArrayAdapter {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        data.remove(position);
+                        diloge(position);
                         notifyDataSetChanged();
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -61,5 +63,22 @@ public class ArrAdapter extends ArrayAdapter {
         });
 
         return v;
+    }
+    public void  diloge(final int pos)
+    {
+        builder=new AlertDialog.Builder(mcontext).setIcon(R.drawable.delete).setMessage("Delete the Data")
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                data.remove(pos);
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        dialog=builder.create();
+        dialog.show();
     }
 }
