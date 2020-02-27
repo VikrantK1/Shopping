@@ -12,10 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Dashboard"></activity>
+        <activity android:name=".savedList"></activity>
+        <activity android:name=".CreateList" />
+        <activity android:name=".Dashboard" />
         <activity android:name=".final_list" />
         <activity android:name=".shopping_fire_data_set" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

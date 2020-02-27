@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateList">
+    <android.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="#AD0E3291"
+        android:layout_height="50dp"/>
+    <ProgressBar
+        android:id="@+id/progessFull"
+        android:layout_below="@+id/toolbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:progress="20"
+        android:layout_marginBottom="0dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_marginTop="20dp"
+        android:layout_below="@+id/progessFull"
+    android:layout_height="wrap_content"
+    android:id="@+id/recyclerCreate"
+    />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="70dp"
+        android:background="#66374ABD"
+        android:id="@+id/floatingButton"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/done"
+        />
+
+</RelativeLayout>

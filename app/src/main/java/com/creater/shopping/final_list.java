@@ -7,9 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.creater.shopping.util.Helper;
 import com.creater.shopping.util.RecyclerAdapter;
@@ -31,6 +36,7 @@ ArrayList<Helper> optimum_List=new ArrayList<>();
 ArrayList<Helper> templist=new ArrayList<>();
 RecyclerAdapter adapter;
 int count=1;
+Toolbar toolbar;
 FirebaseFirestore db23=FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +44,9 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         setContentView(R.layout.activity_final_list);
         progressBar=findViewById(R.id.progess);
         list=findViewById(R.id.recyclerView);
+        toolbar=findViewById(R.id.toolbar);
+        getSupportActionBar().hide();
+        setActionBar(toolbar);
         Bundle bundle=getIntent().getExtras();
         shopinglist=bundle.getStringArrayList("ShoppingList");
         adapter=new RecyclerAdapter(this,optimum_List);
@@ -96,7 +105,6 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
              progressBar.setVisibility(View.INVISIBLE);
-            Toast.makeText(getApplicationContext(),"completed",Toast.LENGTH_SHORT).show();
         }
     }
     public static   ArrayList<Helper>  BestPath(ArrayList<Helper> list)
@@ -116,4 +124,25 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         return list;
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        optimum_List.removeAll(optimum_List);
+        Log.i("optmum",optimum_List.size()+"");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.optionmenu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==R.id.saveFinal)
+        {
+            Toast.makeText(getApplicationContext(),"I am selected body",Toast.LENGTH_SHORT).show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

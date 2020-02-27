@@ -15,6 +15,7 @@ Button manage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_splash_screen);
          manage=findViewById(R.id.manage);
          manage.setOnClickListener(new View.OnClickListener() {
@@ -31,7 +32,7 @@ Button manage;
          r=new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashScreen.this,MainActivity.class));
+                startActivity(new Intent(SplashScreen.this,Dashboard.class));
             }
         };
 

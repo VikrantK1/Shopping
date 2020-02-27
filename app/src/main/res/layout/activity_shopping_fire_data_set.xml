@@ -15,6 +15,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".shopping_fire_data_set">
+    <android.widget.Toolbar
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:background="#AD0E3291"
+        android:layout_height="50dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="67dp"

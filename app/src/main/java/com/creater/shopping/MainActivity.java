@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.creater.shopping.util.ArrAdapter;
 import com.creater.shopping.util.ListCreating;
@@ -40,6 +41,7 @@ ImageView addbtn;
 ArrayList<String> shopping=new ArrayList<>();
 FirebaseFirestore db34=FirebaseFirestore.getInstance();
 ArrayAdapter<String> ad;
+Toolbar toolbar;
 backgroundTask task=new backgroundTask();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,14 @@ backgroundTask task=new backgroundTask();
         editTextFun();
         addToList();
         SubmitList();
+        getSupportActionBar().hide();
+        setActionBar(toolbar);
         task.execute();
     }
     public void initilation()
     {
         text=findViewById(R.id.addList);
+        toolbar=findViewById(R.id.toolbar);
         submit=findViewById(R.id.submitM);
         shopinglist=findViewById(R.id.shoppingList);
         addbtn=findViewById(R.id.addbtn);
