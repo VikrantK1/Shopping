@@ -58,7 +58,6 @@ ArrayList<String> shopping=new ArrayList<>();
                 shopping.add(text.getText().toString());
                 Toast.makeText(getApplicationContext(),"Add to Shopping list",Toast.LENGTH_SHORT).show();
                 arrAdapter.notifyDataSetChanged();
-
             }
             else
             {

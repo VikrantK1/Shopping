@@ -15,14 +15,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".shopping_fire_data_set">
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="67dp"
         android:layout_margin="15dp"
         android:background="@drawable/editround"
         android:textCursorDrawable="@drawable/cursorcolor"
+        android:id="@+id/nameOfProduct"
         android:hint="Product Name"
+
         android:textSize="30dp"/>
 
     <EditText
@@ -31,6 +32,7 @@
         android:layout_margin="15dp"
         android:textCursorDrawable="@drawable/cursorcolor"
         android:background="@drawable/editround"
+        android:id="@+id/distanceFromCounter"
         android:hint="Distance from counter"
         android:textSize="30dp" />
 
@@ -39,15 +41,22 @@
         android:layout_height="198dp"
         android:layout_margin="15dp"
         android:background="@drawable/editround"
+        android:id="@+id/descriptionOfProduct"
         android:textCursorDrawable="@drawable/cursorcolor"
         android:gravity="top|left"
         android:hint="Description and location"
         android:inputType="textMultiLine"
         android:lines="6"
-
         android:minLines="3"
         android:textSize="30dp" />
 
-
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/submitS"
+    android:layout_marginTop="20dp"
+    android:layout_gravity="center_horizontal"
+    android:text="Submit"
+    />
 </LinearLayout>
     </ScrollView>

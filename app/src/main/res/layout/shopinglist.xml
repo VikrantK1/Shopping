@@ -9,7 +9,7 @@
     android:id="@+id/shopping_card"
     app:cardBackgroundColor="#F7F7F7"
     app:cardCornerRadius="10dp"
-    app:cardElevation="40dp"
+    app:cardElevation="7dp"
     android:layout_height="50dp">
     <TextView
         android:layout_width="wrap_content"
