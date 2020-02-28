@@ -1,4 +1,4 @@
-package com.creater.shopping;
+package com.creater.shopping.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.creater.shopping.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -22,14 +25,18 @@ Button submit;
 AlertDialog.Builder builder;
 AlertDialog dialog;
 FirebaseFirestore db=FirebaseFirestore.getInstance();
+Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_fire_data_set);
         productName=findViewById(R.id.nameOfProduct);
+        getSupportActionBar().hide();
         productDistance=findViewById(R.id.distanceFromCounter);
         productDesc=findViewById(R.id.descriptionOfProduct);
         submit=findViewById(R.id.submitS);
+        toolbar=findViewById(R.id.toolbar);
+        setActionBar(toolbar);
         submit.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

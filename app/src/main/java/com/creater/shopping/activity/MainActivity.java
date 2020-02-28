@@ -1,4 +1,4 @@
-package com.creater.shopping;
+package com.creater.shopping.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import com.creater.shopping.util.ArrAdapter;
+import com.creater.shopping.R;
 import com.creater.shopping.util.ListCreating;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,8 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 AutoCompleteTextView text;

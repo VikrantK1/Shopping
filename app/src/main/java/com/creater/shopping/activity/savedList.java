@@ -1,8 +1,10 @@
-package com.creater.shopping;
+package com.creater.shopping.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.creater.shopping.R;
 
 public class savedList extends AppCompatActivity {
 

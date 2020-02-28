@@ -12,10 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.creater.shopping.CreateList;
-import com.creater.shopping.Dashboard;
-import com.creater.shopping.MainActivity;
+import com.creater.shopping.activity.CreateList;
+import com.creater.shopping.activity.MainActivity;
 import com.creater.shopping.R;
+import com.creater.shopping.activity.shopping_fire_data_set;
 
 import java.util.ArrayList;
 
@@ -52,6 +52,10 @@ public DashRecycler(Context context, ArrayList<DashContener> list23)
                 if (position==2)
                 {
 
+                }
+                if (position==3)
+                {
+                    mcontext.startActivity(new Intent(mcontext, shopping_fire_data_set.class));
                 }
             }
         });

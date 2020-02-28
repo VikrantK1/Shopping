@@ -1,4 +1,4 @@
-package com.creater.shopping;
+package com.creater.shopping.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.creater.shopping.R;
 import com.creater.shopping.util.CreateRecycler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;

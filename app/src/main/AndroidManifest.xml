@@ -11,21 +11,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".savedList"></activity>
-        <activity android:name=".CreateList" />
-        <activity android:name=".Dashboard" />
-        <activity android:name=".final_list" />
-        <activity android:name=".shopping_fire_data_set" />
-        <activity android:name=".SplashScreen"
-            >
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize">
+        <activity android:name=".activity.DashBoardAdmin"
+            android:label="Admin DashBoard"
+            ></activity>
+        <activity android:name=".activity.savedList" />
+        <activity android:name=".activity.CreateList" />
+        <activity
+            android:name=".activity.Dashboard"
+            android:label="DashBoard" />
+        <activity android:name=".activity.final_list" />
+        <activity android:name=".activity.shopping_fire_data_set" />
+        <activity android:name=".activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

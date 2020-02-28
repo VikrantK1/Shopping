@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="#ffffff"
+    tools:context=".fragment.Login">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shopping"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:textColor="#4E62B6"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/editround"
+        android:textColor="#2196F3"
+        android:hint="Enter Email"
+        android:paddingStart="10dp"
+        android:theme="@style/EditTextStyle"
+        android:id="@+id/emailLogin"
+        android:textColorHint="#649DCA"
+        android:textSize="15dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:layout_margin="15dp"
+        android:paddingStart="10dp"
+        android:background="@drawable/editround"
+        android:id="@+id/password_Login"
+        android:textColor="#2196F3"
+        android:theme="@style/EditTextStyle"
+        android:hint="Enter Password"
+        android:textColorHint="#649DCA"
+        android:inputType="textPassword"
+        android:textSize="15dp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="#245F8D"
+        app:cardCornerRadius="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginLeft="70dp"
+        android:id="@+id/login"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:id="@+id/goToCreateAccount"
+        android:text="New user click here"
+        android:textColor="#BE1010"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        >
+    </TextView>
+</LinearLayout>

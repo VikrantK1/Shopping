@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".final_list">
+    tools:context=".activity.final_list">
     <android.widget.Toolbar
         android:layout_width="match_parent"
         android:id="@+id/toolbar"

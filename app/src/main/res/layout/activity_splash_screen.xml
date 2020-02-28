@@ -1,27 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
 
     android:orientation="vertical"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Shopping list"
-        android:textSize="40dp"
-        android:layout_centerInParent="true"
-        />
-    <Button
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:layout_margin="50dp"
-        android:text="Managing"
-        android:textSize="30dp"
-        android:id="@+id/manage"
-        android:background="#449ADF5A"
-        android:layout_gravity="bottom"
+        android:layout_height="match_parent"
+        android:name="com.creater.shopping.fragment.SplashScreen2"
+        android:id="@+id/splash"
         />
-</RelativeLayout>
+
+</LinearLayout>
