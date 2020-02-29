@@ -8,25 +8,23 @@
     tools:context=".fragment.SplashScreen2">
 
     <!-- TODO: Update blank fragment layout -->
-
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/splashimg"
+        android:layout_above="@+id/SplashText"
+        android:layout_centerHorizontal="true"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Shopping list"
         android:textSize="40dp"
+        android:id="@+id/SplashText"
+        android:textStyle="bold"
+        android:textColor="#AD0E3291"
         android:layout_centerInParent="true"
         />
-<!--    <Button-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_marginBottom="50dp"-->
-<!--        android:layout_margin="50dp"-->
-<!--        android:text="Managing"-->
-<!--        android:textSize="30dp"-->
-<!--        android:id="@+id/manage"-->
-<!--        android:background="#449ADF5A"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        />-->
+
 </RelativeLayout>

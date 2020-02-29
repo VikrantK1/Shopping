@@ -29,8 +29,9 @@ Button manage;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
+
         setContentView(R.layout.activity_splash_screen);
-        getSupportFragmentManager().beginTransaction().add(R.id.splash,new SplashScreen2()).commit();
+   //     getSupportFragmentManager().beginTransaction().add(R.id.splash,new SplashScreen2()).commit();
 //         manage=findViewById(R.id.manage);
 //         manage.setOnClickListener(new View.OnClickListener() {
 //             @Override
@@ -49,7 +50,6 @@ Button manage;
                 Login login=new Login();
                 if (authLogin.getCurrentUser()!=null)
                 {
-                    final Intent intent=new Intent(SplashScreen.this, Dashboard.class);
                     store.collection("User").document(authLogin.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -58,9 +58,9 @@ Button manage;
                             {
                              startActivity(new Intent(SplashScreen.this,DashBoardAdmin.class));
                             }
-                            else
+                            else if (data.getString("Admin").equals("no"))
                             {
-                                startActivity(intent);
+                                startActivity(new Intent(SplashScreen.this,Dashboard.class));
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -69,7 +69,7 @@ Button manage;
                             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
-                    startActivity(intent);
+
                 }
                 else
                 {

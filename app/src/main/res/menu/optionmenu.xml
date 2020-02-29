@@ -5,5 +5,9 @@
     android:title="saved"
     android:id="@+id/saveFinal"
    app:showAsAction="always"
+
     />
+    <item android:title="EditList"
+        android:id="@+id/EditMenu"
+        />
 </menu>

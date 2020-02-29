@@ -2,6 +2,7 @@ package com.creater.shopping.fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -74,7 +75,7 @@ FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
                 final String nameData=name.getText().toString().trim();
                 final String emailData=email.getText().toString().trim();
                 String passwordData=password.getText().toString().trim();
-                String confirmData=confirmPassword.getText().toString().trim();
+                final String confirmData=confirmPassword.getText().toString().trim();
                 if (TextUtils.isEmpty(nameData))
                 {
                     name.setError("Name is required");
@@ -109,7 +110,10 @@ FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
                     confirmPassword.setError("Confirm password is not matching");
                     return;
                 }
-
+                AlertDialog.Builder builder=new AlertDialog.Builder(activity);
+                final AlertDialog dialog=builder.create();
+                dialog.setView(getLayoutInflater().inflate(R.layout.progessdiloge,null,false));
+                dialog.show();
              createAccount.createUserWithEmailAndPassword(emailData,passwordData).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                  @Override
                  public void onComplete(@NonNull Task<AuthResult> task) {
@@ -121,10 +125,17 @@ FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
                         data.put("Email",emailData);
                         data.put("Admin","no");
                         firebaseFirestore.collection("User").document(createAccount.getCurrentUser().getUid()).set(data);
+                        dialog.dismiss();
                         startActivity(new Intent(activity, Dashboard.class));
                     }
                     else
                     {
+                        dialog.dismiss();
+                        name.setText("");
+                        email.setText("");
+                        password.setText("");
+                        confirmPassword.setText("");
+                        dialog.dismiss();
                         Toast.makeText(activity,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
 
                     }
@@ -132,7 +143,7 @@ FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
              }).addOnFailureListener(new OnFailureListener() {
                  @Override
                  public void onFailure(@NonNull Exception e) {
-                     Toast.makeText(activity,"Somthing is wrong",Toast.LENGTH_SHORT).show();
+
                  }
              });
             }

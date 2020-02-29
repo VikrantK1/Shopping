@@ -16,6 +16,7 @@
     android:layout_height="20dp"
     style="?android:attr/progressBarStyleHorizontal"
     android:progress="20"
+    android:indeterminateTint="@color/theme"
     android:id="@+id/progess"
     />
     <androidx.recyclerview.widget.RecyclerView

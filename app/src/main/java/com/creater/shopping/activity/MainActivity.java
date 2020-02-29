@@ -2,12 +2,14 @@ package com.creater.shopping.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 AutoCompleteTextView text;
-Button submit;
+CardView submit;
 RecyclerView shopinglist;
 String [] list={"vikr","vata","meta","mata","sata"};
 ArrayList<String> suggestionList=new ArrayList<>();
@@ -40,6 +42,7 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
 ArrayAdapter<String> ad;
 Toolbar toolbar;
 backgroundTask task=new backgroundTask();
+ArrayList<String> editlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +50,21 @@ backgroundTask task=new backgroundTask();
         initilation();
         editTextFun();
         addToList();
+
         SubmitList();
         getSupportActionBar().hide();
         setActionBar(toolbar);
         task.execute();
+        Bundle bundle=getIntent().getExtras();
+
+        if (bundle!=null)
+        {
+            editlist=bundle.getStringArrayList("EditList");
+            shopping.addAll(editlist);
+            arrAdapter.notifyDataSetChanged();
+
+
+        }
     }
     public void initilation()
     {
@@ -93,27 +107,30 @@ backgroundTask task=new backgroundTask();
             return "Complete";
         }
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Toast.makeText(getApplicationContext(),"Complete",Toast.LENGTH_SHORT).show();
-        }
+
     }
     public void addToList()
     {
     addbtn.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (!shopping.contains(text.getText().toString()))
-            {
-                shopping.add(text.getText().toString());
-                arrAdapter.notifyDataSetChanged();
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(),"Added before in list",Toast.LENGTH_SHORT).show();
+           if (!TextUtils.isEmpty(text.getText().toString()))
+           {
+               if (!shopping.contains(text.getText().toString()))
+               {
+                   shopping.add(text.getText().toString().trim());
+                   arrAdapter.notifyDataSetChanged();
+               }
+               else
+               {
+                   Toast.makeText(getApplicationContext(),"Added before in list",Toast.LENGTH_SHORT).show();
 
-            }
+               }
+           }
+           else
+           {
+               text.setError("Enter name First");
+           }
             text.setText("");
         }
 
@@ -121,16 +138,23 @@ backgroundTask task=new backgroundTask();
     }
 
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 
     public void SubmitList()
     {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (shopping.size()!=0)
+                {
+                    Intent intent=new Intent(MainActivity.this,final_list.class);
+                    intent.putStringArrayListExtra("ShoppingList",shopping);
+                    startActivity(intent);
+                }
 
-                Intent intent=new Intent(MainActivity.this,final_list.class);
-                intent.putStringArrayListExtra("ShoppingList",shopping);
-                startActivity(intent);
             }
         });
     }

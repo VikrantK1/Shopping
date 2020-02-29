@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -71,24 +72,16 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
                 outRect.set(4,10,4,10);
             }
         });
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recycler);
+
         new backgroundTask().execute();
     }
     class  backgroundTask extends AsyncTask<Void,Integer,String>
     {
-        int i=0;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setProgress(0);
-            progressBar.setMax(100);
-        }
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressBar.setProgress(values[0]);
-        }
+
+
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -100,9 +93,6 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
                     ) {
                         list.add(doc.getString("ProductName"));
                         recycler.notifyDataSetChanged();
-                        publishProgress(i);
-                        i++;
-
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -111,6 +101,11 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
                     Toast.makeText(getApplicationContext(),"Check Internet Connection",Toast.LENGTH_SHORT).show();
                 }
             });
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return "Complete";
         }
 

@@ -23,7 +23,17 @@
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="-20dp" />
-
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textSize="20sp"
+             android:text="20"
+             android:id="@+id/count"
+             android:textColor="@color/theme"
+             android:layout_margin="10dp"
+             android:visibility="invisible"
+             android:layout_alignParentEnd="true"
+             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

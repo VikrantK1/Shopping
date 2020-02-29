@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shopping"
+        android:text="New User"
         android:textSize="50dp"
         android:textStyle="bold"
         android:textColor="#4E62B6"
@@ -101,5 +101,8 @@
         android:text="Already Have Account"
         android:id="@+id/backToLogin"
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
 </LinearLayout>
 </ScrollView>

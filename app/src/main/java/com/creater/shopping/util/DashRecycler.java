@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -15,7 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.creater.shopping.activity.CreateList;
 import com.creater.shopping.activity.MainActivity;
 import com.creater.shopping.R;
+import com.creater.shopping.activity.savedList;
 import com.creater.shopping.activity.shopping_fire_data_set;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -35,9 +41,27 @@ public DashRecycler(Context context, ArrayList<DashContener> list23)
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, final int position) {
+    public void onBindViewHolder(@NonNull final Holder holder, final int position) {
      holder.imageView.setImageResource(data.get(position).getImg());
         holder.textView.setText(data.get(position).getValue());
+        if (position==2)
+        {
+
+            firebasehelp.store.collection("User").document(firebasehelp.auth.getCurrentUser().getUid())
+                    .collection("List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    holder.count.setVisibility(View.VISIBLE);
+                    QuerySnapshot doc=task.getResult();
+                    holder.count.setText(""+doc.size());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(mcontext,e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,6 +76,7 @@ public DashRecycler(Context context, ArrayList<DashContener> list23)
                 if (position==2)
                 {
 
+                 mcontext.startActivity(new Intent(mcontext, savedList.class));
                 }
                 if (position==3)
                 {
@@ -70,11 +95,13 @@ public DashRecycler(Context context, ArrayList<DashContener> list23)
     CardView cardView;
     TextView textView;
     ImageView imageView;
+    TextView  count;
         public Holder(@NonNull View itemView) {
             super(itemView);
             cardView=itemView.findViewById(R.id.dashcard);
             textView=itemView.findViewById(R.id.dashText);
             imageView=itemView.findViewById(R.id.dashImage);
+            count=itemView.findViewById(R.id.count);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.creater.shopping.fragment;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +53,7 @@ FirebaseFirestore store=FirebaseFirestore.getInstance();
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_login, container, false);
 
-
+        mactivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         email=v.findViewById(R.id.emailLogin);
         password=v.findViewById(R.id.password_Login);
         createAccount=v.findViewById(R.id.goToCreateAccount);
@@ -88,6 +90,11 @@ public void login()
             password.setError("Password should be Greater than 6");
             return;
         }
+           AlertDialog.Builder builder=new AlertDialog.Builder(mactivity);
+            final AlertDialog dialog=builder.create();
+            dialog.setView(getLayoutInflater().inflate(R.layout.progessdiloge,null,false));
+            dialog.show();
+
         authLogin.signInWithEmailAndPassword(emaildata,passwordData).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -100,10 +107,12 @@ public void login()
                             DocumentSnapshot data=task.getResult();
                             if (data.getString("Admin").equals("yes"))
                             {
+                                dialog.dismiss();
                                 startActivity(new Intent(mactivity, DashBoardAdmin.class));
                             }
-                            else
+                            else if (data.getString("Admin").equals("no"))
                             {
+                                dialog.dismiss();
                                 startActivity(intent);
                             }
                         }
@@ -122,6 +131,7 @@ public void login()
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                dialog.dismiss();
                 Toast.makeText(mactivity,e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });

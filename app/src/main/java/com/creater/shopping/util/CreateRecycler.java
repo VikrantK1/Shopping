@@ -48,7 +48,7 @@ public class CreateRecycler extends RecyclerView.Adapter<CreateRecycler.Holder> 
                }
                holder.imageView.setVisibility(View.VISIBLE);
                holder.cardView.setCardBackgroundColor(Color.parseColor("#7791e0"));
-            holder.imageView.setOnClickListener(new View.OnClickListener() {
+               holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     created.remove(list23.get(position));

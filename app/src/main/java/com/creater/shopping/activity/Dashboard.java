@@ -33,6 +33,7 @@ ArrayList<DashContener> list=new ArrayList<>();
 TextView textView;
 RecyclerView recyclerView;
 Toolbar toolbar;
+   public DashRecycler dashRecycler;
 FirebaseFirestore username=FirebaseFirestore.getInstance();
 FirebaseAuth auth=FirebaseAuth.getInstance();
     @Override
@@ -47,7 +48,7 @@ FirebaseAuth auth=FirebaseAuth.getInstance();
         toolbar=findViewById(R.id.toolbar);
         getSupportActionBar().hide();
         setActionBar(toolbar);
-        DashRecycler dashRecycler=new DashRecycler(this,list);
+        dashRecycler=new DashRecycler(this,list);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -93,7 +94,23 @@ FirebaseAuth auth=FirebaseAuth.getInstance();
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        dashRecycler.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        list.remove(2);
+        list.add(new DashContener(name[2],img[2]));
+        dashRecycler.notifyDataSetChanged();
+
+    }
+
+    @Override
     public void onBackPressed() {
-        finish();
+
+        finishAffinity();
     }
 }
