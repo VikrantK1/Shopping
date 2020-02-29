@@ -3,6 +3,8 @@ package com.creater.shopping.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +23,7 @@ import java.util.Map;
 
 public class shopping_fire_data_set extends AppCompatActivity {
 EditText productName,productDistance,productDesc;
-Button submit;
+CardView submit;
 AlertDialog.Builder builder;
 AlertDialog dialog;
 FirebaseFirestore db=FirebaseFirestore.getInstance();
@@ -42,6 +44,7 @@ Toolbar toolbar;
            public void onClick(View v) {
                if (!(productDesc.getText().toString() =="") && !(productName.getText().toString() =="")&& !(productDesc.getText().toString() ==""))
                {
+
                    fireStoreData();
                    productName.setText("");
                    productDistance.setText("");
@@ -56,6 +59,10 @@ Toolbar toolbar;
     }
     public void fireStoreData()
     {
+        AlertDialog.Builder builderp=new AlertDialog.Builder(shopping_fire_data_set.this);
+        final AlertDialog dialogp=builderp.create();
+        dialogp.setView(getLayoutInflater().inflate(R.layout.progessdiloge,null,false));
+        dialogp.show();
         builder=new AlertDialog.Builder(shopping_fire_data_set.this);
         builder.setIcon(R.drawable.error).setMessage("Check Your Internet Connection").
                 setNegativeButton("Ok", new DialogInterface.OnClickListener() {
@@ -72,11 +79,13 @@ Toolbar toolbar;
     db.collection("Shopping list").add(value).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
         @Override
         public void onSuccess(DocumentReference documentReference) {
+            dialogp.dismiss();
             Toast.makeText(getApplicationContext(),"Data is Saved",Toast.LENGTH_SHORT).show();
         }
     }).addOnFailureListener(new OnFailureListener() {
         @Override
         public void onFailure(@NonNull Exception e) {
+            dialogp.dismiss();
             dialog=builder.create();
             dialog.show();
         }

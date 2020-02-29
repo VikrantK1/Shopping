@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Shopping list"
+        android:text="Shopping List"
         android:textSize="40dp"
         android:id="@+id/SplashText"
         android:textStyle="bold"

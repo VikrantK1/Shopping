@@ -152,6 +152,7 @@ ArrayList<String> editlist;
                 {
                     Intent intent=new Intent(MainActivity.this,final_list.class);
                     intent.putStringArrayListExtra("ShoppingList",shopping);
+                    finish();
                     startActivity(intent);
                 }
 

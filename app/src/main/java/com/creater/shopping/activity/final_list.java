@@ -204,6 +204,10 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
     }
     public void saveData()
     {
+        AlertDialog.Builder builder23=new AlertDialog.Builder(final_list.this);
+        final AlertDialog dialog34=builder23.create();
+        dialog34.setView(getLayoutInflater().inflate(R.layout.progessdiloge,null,false));
+        dialog34.show();
         Calendar c=Calendar.getInstance();
         int day=c.get(Calendar.DAY_OF_MONTH);
         int month=c.get(Calendar.MONTH);
@@ -230,6 +234,7 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists())
                 {
+                    dialog34.dismiss();
                     text.setError("List is already Exist");
                 }
                 else
@@ -239,10 +244,12 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getApplicationContext(),"List is Saved",Toast.LENGTH_SHORT).show();
+                            dialog34.dismiss();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            dialog34.dismiss();
                             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });

@@ -53,7 +53,9 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
                 {
                     Intent intent=new Intent(CreateList.this,final_list.class);
                     intent.putStringArrayListExtra("ShoppingList",recycler.created);
+
                     startActivity(intent);
+                    finish();
                 }
                 else
                 {

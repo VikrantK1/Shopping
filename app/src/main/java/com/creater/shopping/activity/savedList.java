@@ -35,4 +35,8 @@ public Context context=savedList.this;
         setActionBar(toolbar);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }
