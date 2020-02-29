@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -88,7 +90,7 @@ FirebaseAuth auth=FirebaseAuth.getInstance();
         if (item.getItemId()==R.id.logout)
         {
         auth.signOut();
-        finish();
+        finishAffinity();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -96,17 +98,16 @@ FirebaseAuth auth=FirebaseAuth.getInstance();
     @Override
     protected void onResume() {
         super.onResume();
-        dashRecycler.notifyDataSetChanged();
+
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        list.remove(2);
-        list.add(new DashContener(name[2],img[2]));
-        dashRecycler.notifyDataSetChanged();
+   //    startActivity(new Intent(Dashboard.this,Dashboard.class));
 
     }
+
 
     @Override
     public void onBackPressed() {

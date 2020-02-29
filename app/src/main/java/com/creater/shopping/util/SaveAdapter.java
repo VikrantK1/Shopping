@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,6 +53,10 @@ public class SaveAdapter extends ArrayAdapter {
         final RelativeLayout listrow=v.findViewById(R.id.saveRow);
         final TextView date=v.findViewById(R.id.listDate);
         listname.setText(data.get(position));
+        if (TextUtils.isEmpty(date.getText()))
+        {
+            listrow.setClickable(false);
+        }
         firebasehelp.store.collection("User").document(firebasehelp.auth.getCurrentUser()
                 .getUid()).collection("List").document(data.get(position))
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -60,6 +65,7 @@ public class SaveAdapter extends ArrayAdapter {
                DocumentSnapshot doc=task.getResult();
                 ArrayList<String> dat= (ArrayList<String>) doc.get("ListData");
                date.setText(dat.get(0));
+               listrow.setClickable(true);
                 dat.remove(0);
                 final ArrayList<String> list=dat;
                 listrow.setOnClickListener(new View.OnClickListener() {

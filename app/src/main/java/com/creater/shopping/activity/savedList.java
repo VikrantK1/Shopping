@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toolbar;
 
 import com.creater.shopping.R;
+import com.creater.shopping.util.firebasehelp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +38,20 @@ public Context context=savedList.this;
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (firebasehelp.checkDashboard()=="yes")
+        {
+            startActivity(new Intent(savedList.this,DashBoardAdmin.class));
+        }
+        else if (firebasehelp.checkDashboard()=="no")
+        {
+            startActivity(new Intent(savedList.this,Dashboard.class));
+        }
     }
 }

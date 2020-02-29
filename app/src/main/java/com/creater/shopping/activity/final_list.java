@@ -25,6 +25,7 @@ import android.widget.Toolbar;
 import com.creater.shopping.R;
 import com.creater.shopping.util.Helper;
 import com.creater.shopping.util.RecyclerAdapter;
+import com.creater.shopping.util.firebasehelp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -243,8 +244,34 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
                             document(text.getText().toString().trim()).set(values).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(getApplicationContext(),"List is Saved",Toast.LENGTH_SHORT).show();
-                            dialog34.dismiss();
+                           if (task.isSuccessful())
+                           {
+                               Toast.makeText(getApplicationContext(),"List is Saved",Toast.LENGTH_SHORT).show();
+                               dialog.dismiss();
+                               firebasehelp.store.collection("User").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                       DocumentSnapshot data=task.getResult();
+                                       if (data.getString("Admin").equals("yes"))
+                                       {
+                                           dialog34.dismiss();
+                                  startActivity(new Intent(final_list.this,DashBoardAdmin.class));
+                                       }
+                                       else if (data.getString("Admin").equals("no"))
+                                       {
+                                           dialog34.dismiss();
+                                   startActivity(new Intent(final_list.this,Dashboard.class));
+                                       }
+                                   }
+                               }).addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@NonNull Exception e) {
+
+                                   }
+                               });
+
+                           }
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -253,7 +280,6 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
                             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     });
-                    finish();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.Menu;
@@ -88,13 +89,19 @@ public class DashBoardAdmin extends AppCompatActivity {
         if (item.getItemId()==R.id.logout)
         {
             auth.signOut();
-            finish();
+            finishAffinity();
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+      //  startActivity(new Intent(DashBoardAdmin.this,DashBoardAdmin.class));
+    }
+
+    @Override
     public void onBackPressed() {
-        finish();
+        finishAffinity();
     }
 }
