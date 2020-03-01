@@ -1,4 +1,4 @@
-package com.creater.shopping;
+package com.creater.shopping.fragment;
 
 
 import android.app.Activity;
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.creater.shopping.R;
 import com.creater.shopping.activity.Dashboard;
 import com.creater.shopping.util.SaveAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;

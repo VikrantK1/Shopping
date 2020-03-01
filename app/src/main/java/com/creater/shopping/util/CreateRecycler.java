@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CreateRecycler extends RecyclerView.Adapter<CreateRecycler.Holder> {
     Context mcontext;
     ArrayList<String > list23;
- public static   ArrayList<String>created=new ArrayList<>();
+ public  ArrayList<String>created=new ArrayList<>();
   public CreateRecycler()
   {
 

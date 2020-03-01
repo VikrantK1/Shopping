@@ -53,7 +53,6 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
                 {
                     Intent intent=new Intent(CreateList.this,final_list.class);
                     intent.putStringArrayListExtra("ShoppingList",recycler.created);
-
                     startActivity(intent);
                     finish();
                 }
@@ -116,5 +115,12 @@ FirebaseFirestore db34=FirebaseFirestore.getInstance();
             super.onPostExecute(s);
             progressBar.setVisibility(View.INVISIBLE);
         }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+       recycler.created.removeAll(recycler.created);
     }
 }
