@@ -5,43 +5,236 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".activity.Dashboard">
-    <android.widget.Toolbar
-        android:layout_width="match_parent"
-        android:id="@+id/toolbar"
-        android:background="#AD0E3291"
-        android:layout_height="50dp"/>
+    tools:context=".activity.DashBoardAdmin">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="165dp"
+        android:background="@drawable/splashinverse">
+
         <androidx.cardview.widget.CardView
-            android:layout_width="50dp"
-            android:layout_toLeftOf="@+id/Username"
-            app:cardCornerRadius="25dp"
+            android:id="@+id/userimg"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_centerVertical="true"
-            android:layout_height="50dp">
+            android:layout_marginStart="30dp"
+            app:cardCornerRadius="35dp">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-               android:layout_gravity="center"
-                android:src="@drawable/ic_person_black_24dp"
-                />
+                android:layout_gravity="center"
+                android:id="@+id/userimgV"
+                android:src="@drawable/ic_person_black_24dp" />
         </androidx.cardview.widget.CardView>
+
         <TextView
+            android:id="@+id/Username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text=""
+            android:layout_marginEnd="10dp"
             android:layout_centerVertical="true"
-            android:textColor="#4F42A8"
-            android:id="@+id/Username"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="10dp"
-            />
+            android:layout_marginStart="25dp"
+            android:layout_toRightOf="@+id/userimg"
+            android:text="Vikrant Kumar"
+            android:textColor="@color/gradientup"
+            android:textSize="25dp" />
     </RelativeLayout>
-    <androidx.recyclerview.widget.RecyclerView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/dashRecycler"
-        />
+        android:layout_marginTop="-25dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="7dp"
+                    android:id="@+id/createlist1"
+                    android:layout_marginStart="18dp"
+                    android:layout_height="150dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/createlist"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/createlist"
+                            android:layout_marginTop="-20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/createlist"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/createlistT"
+                            android:text="Create List"
+                            android:textColor="@color/gradientdown"
+                            android:textSize="20dp" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="7dp"
+                    android:id="@+id/havinglist"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_height="150dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/havinglistI"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/listhaving"
+                            android:layout_marginTop="-20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/havinglistI"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/havinglistT"
+                            android:text="Having List"
+                            android:textColor="@color/gradientdown"
+                            android:textSize="20dp" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="7dp"
+                    android:id="@+id/savedlist"
+                    android:layout_marginStart="18dp"
+                    android:layout_height="150dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="25dp"
+                            android:textSize="15sp"
+                            android:text="20"
+                            android:gravity="center"
+                            android:id="@+id/count"
+                            android:background="@drawable/shape"
+                            android:textColor="@color/gradientdown"
+                            android:layout_margin="10dp"
+                            android:layout_alignParentEnd="true"
+                            />
+                        <ImageView
+                            android:id="@+id/savedlistI"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/saveall"
+                            android:layout_marginTop="-20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/savedlistI"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/savedlistT"
+                            android:text="Saved List"
+                            android:textColor="@color/gradientdown"
+                            android:textSize="20dp" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="7dp"
+                    android:id="@+id/manage"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_height="150dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/manageI"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/admin"
+                            android:layout_marginTop="-20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/manageI"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/manageT"
+                            android:text="Manage"
+                            android:textColor="@color/gradientdown"
+                            android:textSize="20dp" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="160dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    app:cardCornerRadius="25dp"
+                    app:cardElevation="7dp"
+                    android:id="@+id/logoutC"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_height="150dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/logoutI"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/logout2"
+                            android:layout_marginTop="-20dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/logoutI"
+                            android:layout_centerHorizontal="true"
+                            android:id="@+id/logoutT"
+                            android:text="Logout"
+                            android:textColor="@color/gradientdown"
+                            android:textSize="20dp" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

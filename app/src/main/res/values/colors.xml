@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="selected">#5F81BE</color>
     <color name="theme">#AD0E3291</color>
+    <color name="gradientup">#33A0B1</color>
+    <color name="gradientdown">#251ABE</color>
 </resources>

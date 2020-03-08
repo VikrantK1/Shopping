@@ -11,4 +11,5 @@
        <item name="android:colorControlActivated">#AD042270</item>
        <item name="android:colorActivatedHighlight">#AD042270</item>
    </style>
+
 </resources>

@@ -2,6 +2,7 @@ package com.creater.shopping.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -19,48 +21,79 @@ import android.widget.Toolbar;
 import com.creater.shopping.R;
 import com.creater.shopping.util.DashContener;
 import com.creater.shopping.util.DashRecycler;
+import com.creater.shopping.util.firebasehelp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 public class Dashboard extends AppCompatActivity {
-String name[]={"Create List","Having List","Saved List"};
-int img[]={R.drawable.ic_shopping_cart_black_24dp,R.drawable.list,R.drawable.saved};
-ArrayList<DashContener> list=new ArrayList<>();
-TextView textView;
-RecyclerView recyclerView;
-Toolbar toolbar;
-   public DashRecycler dashRecycler;
+CardView createList,havingList,savedList,logout,Exit;
+TextView usernameT,count;
+ImageView userimg;
 FirebaseFirestore username=FirebaseFirestore.getInstance();
 FirebaseAuth auth=FirebaseAuth.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-        recyclerView=findViewById(R.id.dashRecycler);
-        list.add(new DashContener(name[0],img[0]));
-        list.add(new DashContener(name[1],img[1]));
-        list.add(new DashContener(name[2],img[2]));
-        textView=findViewById(R.id.Username);
-        toolbar=findViewById(R.id.toolbar);
         getSupportActionBar().hide();
-        setActionBar(toolbar);
-        dashRecycler=new DashRecycler(this,list);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(10,10,10,10);
-            }
-        });
-        recyclerView.setAdapter(dashRecycler);
+        setContentView(R.layout.activity_dashboard);
+        idData();
+        count();
+        onclickEvents();
         getUserName();
+    }
+    public void idData()
+    {
+        usernameT=findViewById(R.id.Username);
+        createList=findViewById(R.id.createlist1);
+        havingList=findViewById(R.id.havinglist);
+        savedList=findViewById(R.id.savedlist);
+        logout=findViewById(R.id.logoutC);
+        count=findViewById(R.id.count);
+        userimg=findViewById(R.id.userimgV);
+        Exit=findViewById(R.id.Exit);
+    }
+    public void onclickEvents()
+    {
+       createList.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(Dashboard.this, CreateList.class));
+           }
+       });
+       havingList.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(Dashboard.this, MainActivity.class));
+           }
+       });
+       savedList.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(Dashboard.this, savedList.class));
+           }
+       });
+       logout.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               auth.signOut();
+               finishAffinity();
+
+           }
+       });
+
+       Exit.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               finishAffinity();
+           }
+       });
     }
     public void getUserName()
     {
@@ -68,7 +101,7 @@ FirebaseAuth auth=FirebaseAuth.getInstance();
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                DocumentSnapshot data=task.getResult();
-               textView.setText(data.getString("Name"));
+               usernameT.setText(data.getString("Name"));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -77,37 +110,32 @@ FirebaseAuth auth=FirebaseAuth.getInstance();
             }
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.dashmenu,menu);
-        return super.onCreateOptionsMenu(menu);
+    public void count()
+    {
+        firebasehelp.store.collection("User").document(firebasehelp.auth.getCurrentUser().getUid())
+                .collection("List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                QuerySnapshot doc=task.getResult();
+                count.setText(""+doc.size());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Dashboard.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId()==R.id.logout)
-        {
-        auth.signOut();
-        finishAffinity();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
     @Override
     protected void onRestart() {
         super.onRestart();
-   //    startActivity(new Intent(Dashboard.this,Dashboard.class));
-
+        try {
+            count();
+        }catch (Exception e)
+        {
+            Toast.makeText(Dashboard.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+        }
     }
-
 
     @Override
     public void onBackPressed() {
