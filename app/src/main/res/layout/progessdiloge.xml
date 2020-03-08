@@ -5,6 +5,6 @@
     android:layout_height="110dp">
 <ProgressBar
     android:layout_width="100dp"
-    android:indeterminateTint="@color/theme"
+    android:indeterminateTint="@color/gradientdown"
     android:layout_height="100dp"/>
 </LinearLayout>

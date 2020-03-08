@@ -15,6 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New User"
+        android:id="@+id/newuser45"
         android:textSize="50dp"
         android:textStyle="bold"
         android:textColor="#4E62B6"
@@ -28,10 +29,8 @@
         android:paddingStart="10dp"
         android:background="@drawable/editround"
         android:id="@+id/Name"
-        android:textColor="#2196F3"
-        android:theme="@style/EditTextStyle"
+        style="@style/EditTextStyle"
         android:hint="Enter Name"
-        android:textColorHint="#649DCA"
         android:inputType="textPersonName"
         android:textSize="20dp" />
     <EditText
@@ -39,13 +38,11 @@
         android:layout_height="50dp"
         android:layout_margin="15dp"
         android:background="@drawable/editround"
-        android:textColor="#2196F3"
         android:hint="Enter Email"
         android:paddingStart="10dp"
-        android:theme="@style/EditTextStyle"
+        style="@style/EditTextStyle"
         android:id="@+id/Email"
         android:inputType="textEmailAddress"
-        android:textColorHint="#649DCA"
         android:textSize="20dp"/>
 
     <EditText
@@ -55,10 +52,8 @@
         android:paddingStart="10dp"
         android:background="@drawable/editround"
         android:id="@+id/Password"
-        android:textColor="#2196F3"
-        android:theme="@style/EditTextStyle"
+        style="@style/EditTextStyle"
         android:hint="Enter Password"
-        android:textColorHint="#649DCA"
         android:inputType="textPassword"
         android:textSize="20dp" />
     <EditText
@@ -68,35 +63,25 @@
         android:paddingStart="10dp"
         android:background="@drawable/editround"
         android:id="@+id/ConfirmPassword"
-        android:textColor="#2196F3"
-        android:theme="@style/EditTextStyle"
+        style="@style/EditTextStyle"
         android:hint="Enter Confirm Password"
-        android:textColorHint="#649DCA"
         android:inputType="textPassword"
         android:textSize="20dp" />
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        app:cardBackgroundColor="#245F8D"
-        app:cardCornerRadius="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginLeft="70dp"
-        android:id="@+id/submitC"
-        android:layout_height="50dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:layout_width="170dp"
+            android:layout_height="40dp"
             android:text="Submit"
+            android:id="@+id/submitC"
             android:textColor="#FFFFFF"
-            android:textSize="30dp"
+            style="@style/button"
+            android:gravity="center"
             android:layout_gravity="center"
             />
-    </androidx.cardview.widget.CardView>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="#673AB7"
+        android:textColor="@color/gradientdown"
         android:textSize="20sp"
         android:text="Already Have Account"
         android:id="@+id/backToLogin"

@@ -6,8 +6,8 @@
     <android.widget.Toolbar
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:background="#AD0E3291"
-        android:layout_height="50dp"/>
+        android:background="@drawable/splashinverse"
+        android:layout_height="60dp"/>
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"

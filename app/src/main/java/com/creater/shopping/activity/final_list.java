@@ -168,7 +168,7 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         if (item.getItemId()==R.id.saveFinal)
         {
             View v=getLayoutInflater().inflate(R.layout.savediloge,null,false);
-            CardView button=v.findViewById(R.id.savedD);
+           Button button=v.findViewById(R.id.savedD);
             text=v.findViewById(R.id.diloge);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

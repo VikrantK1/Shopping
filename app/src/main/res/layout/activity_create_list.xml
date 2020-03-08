@@ -8,8 +8,8 @@
     <android.widget.Toolbar
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:background="#AD0E3291"
-        android:layout_height="50dp"/>
+        android:background="@drawable/splashinverse"
+        android:layout_height="60dp"/>
     <ProgressBar
         android:id="@+id/progessFull"
         android:layout_below="@+id/toolbar"
@@ -34,7 +34,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="70dp"
-        android:tint="@color/theme"
+        android:backgroundTint="@color/gradientup"
         android:id="@+id/floatingButton"
         android:layout_marginRight="20dp"
         android:src="@drawable/done"

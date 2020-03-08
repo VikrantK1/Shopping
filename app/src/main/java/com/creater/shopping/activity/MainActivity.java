@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Shader;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 AutoCompleteTextView text;
-CardView submit;
+Button submit;
 RecyclerView shopinglist;
 String [] list={"vikr","vata","meta","mata","sata"};
 ArrayList<String> suggestionList=new ArrayList<>();
@@ -46,6 +47,7 @@ ArrayList<String> editlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         initilation();
         editTextFun();

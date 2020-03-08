@@ -5,16 +5,20 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +42,8 @@ import java.util.Map;
 public class CreateAcount extends Fragment {
 Activity activity;
 EditText name,email,password,confirmPassword;
-CardView submit;
-TextView backlogin;
+Button submit;
+TextView backlogin,newUserText;
 FirebaseAuth createAccount=FirebaseAuth.getInstance();
 FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
     public CreateAcount() {
@@ -53,6 +57,8 @@ FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_create_acount, container, false);
         name=v.findViewById(R.id.Name);
+
+        newUserText=v.findViewById(R.id.newuser45);
         email=v.findViewById(R.id.Email);
         password=v.findViewById(R.id.Password);
         confirmPassword=v.findViewById(R.id.ConfirmPassword);
@@ -65,7 +71,18 @@ FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
             }
         });
         submit();
+        Shader sec=new LinearGradient(5.0f,2.0f,backlogin.getWidth(),backlogin.getTextSize(),ContextCompat.getColor(getContext(),R.color.gradientup),
+                ContextCompat.getColor(getContext(),R.color.gradientdown),Shader.TileMode.CLAMP);
+        backlogin.getPaint().setShader(sec);
+        gradientUser();
         return v;
+    }
+    public void gradientUser()
+    {
+        float width=newUserText.getPaint().measureText("New User");
+        Shader gradientColor=new LinearGradient(20.0f,40.0f,width,newUserText.getTextSize(), ContextCompat.getColor(getContext(),R.color.gradientup),
+                ContextCompat.getColor(getContext(),R.color.gradientdown),Shader.TileMode.CLAMP);
+        newUserText.getPaint().setShader(gradientColor);
     }
     public void submit()
     {

@@ -4,12 +4,25 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#AD0E3291</item>
+        <item name="colorPrimaryDark">@color/gradientdown</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
    <style name="EditTextStyle">
-       <item name="android:colorControlActivated">#AD042270</item>
-       <item name="android:colorActivatedHighlight">#AD042270</item>
+       <item name="android:colorControlActivated">@color/gradientdown</item>
+       <item name="android:colorActivatedHighlight">@color/gradientdown</item>
+       <item name="android:textColorHint">@color/gradientdown</item>
+       <item name="android:textColor">@color/gradientdown</item>
    </style>
-
+  <style name="cardstyle">
+      <item name="android:background">@drawable/userring</item>
+  </style>
+    <style name="imagview">
+        <item name="android:foreground">@drawable/splashinverse</item>
+        <item name="android:background">@drawable/add</item>
+    </style>
+    <style name="button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/gradientbutton</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:textSize">25dp</item>
+    </style>
 </resources>

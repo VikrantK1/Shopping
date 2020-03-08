@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class shopping_fire_data_set extends AppCompatActivity {
 EditText productName,productDistance,productDesc;
-CardView submit;
+Button submit;
 AlertDialog.Builder builder;
 AlertDialog dialog;
 FirebaseFirestore db=FirebaseFirestore.getInstance();

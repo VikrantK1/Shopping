@@ -13,11 +13,12 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/userimg"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="30dp"
-            app:cardCornerRadius="35dp">
+            style="@style/cardstyle"
+            app:cardCornerRadius="30dp">
 
             <ImageView
                 android:layout_width="match_parent"

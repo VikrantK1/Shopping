@@ -5,17 +5,23 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,9 +44,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Login extends Fragment {
 
 Activity mactivity;
+
 EditText email,password;
-TextView createAccount;
-CardView login;
+TextView createAccount,loginText;
+Button login;
+Shader textshader;
 FirebaseAuth authLogin=FirebaseAuth.getInstance();
 FirebaseFirestore store=FirebaseFirestore.getInstance();
     public Login() {
@@ -56,8 +64,13 @@ FirebaseFirestore store=FirebaseFirestore.getInstance();
         mactivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         email=v.findViewById(R.id.emailLogin);
         password=v.findViewById(R.id.password_Login);
+        loginText=v.findViewById(R.id.logintext);
         createAccount=v.findViewById(R.id.goToCreateAccount);
         login=v.findViewById(R.id.login);
+        float width=loginText.getPaint().measureText("Login");
+        textshader=new LinearGradient(0,0,width, loginText.getTextSize(),ContextCompat.getColor(getContext(),R.color.gradientup)
+        ,ContextCompat.getColor(getContext(),R.color.gradientdown),Shader.TileMode.CLAMP);
+        loginText.getPaint().setShader(textshader);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

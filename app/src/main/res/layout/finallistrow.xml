@@ -12,7 +12,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Dummy"
-            android:textColor="#3561DA"
+            android:textColor="@color/gradientdown"
             android:textSize="30dp"/>
         <TextView
             android:layout_width="match_parent"
