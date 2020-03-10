@@ -2,8 +2,13 @@ package com.creater.shopping.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
@@ -23,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashScreen extends AppCompatActivity {
 Button manage;
+    String permissions[]={Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
     FirebaseAuth authLogin=FirebaseAuth.getInstance();
     Handler handler=new Handler();
     Runnable r;
@@ -89,5 +95,20 @@ Button manage;
     protected void onStop() {
         super.onStop();
         handler.removeCallbacks(r);
+    }
+    public boolean chechPermission(String [] permissions, Context con)
+    {
+        boolean checked=true;
+        for (String permis:permissions
+             ) {
+              int res=con.checkCallingOrSelfPermission(permis);
+              if (res!= PackageManager.PERMISSION_GRANTED)
+              {
+                  checked=false;
+                  break;
+              }
+        }
+
+        return checked;
     }
 }

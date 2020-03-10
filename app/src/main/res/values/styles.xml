@@ -25,4 +25,11 @@
         <item name="android:layout_width">160dp</item>
         <item name="android:textSize">25dp</item>
     </style>
+    <style name="loginTextstyle">
+        <item name="android:colorControlActivated">#ffffff</item>
+        <item name="android:colorActivatedHighlight">#ffffff</item>
+        <item name="android:textColorHint">#ffffff</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:background">@drawable/textbordershapelogin</item>
+    </style>
 </resources>

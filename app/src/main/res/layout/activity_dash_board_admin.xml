@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".activity.DashBoardAdmin">
     <RelativeLayout
@@ -11,22 +12,15 @@
         android:layout_height="165dp"
         android:background="@drawable/splashinverse">
 
-        <androidx.cardview.widget.CardView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/userimg"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:layout_marginStart="25dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"
-            style="@style/cardstyle"
-            app:cardCornerRadius="30dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:id="@+id/userimgV"
-                android:src="@drawable/ic_person_black_24dp" />
-        </androidx.cardview.widget.CardView>
+            android:src="@drawable/addperson"
+            />
 
         <TextView
             android:id="@+id/Username"
@@ -37,7 +31,7 @@
             android:layout_marginStart="25dp"
             android:layout_toRightOf="@+id/userimg"
             android:text="Vikrant Kumar"
-            android:textColor="@color/gradientup"
+            android:textColor="#ffffff"
             android:textSize="25dp" />
     </RelativeLayout>
     <ScrollView
@@ -136,7 +130,7 @@
                             android:layout_width="40dp"
                             android:layout_height="25dp"
                             android:textSize="15sp"
-                            android:text="20"
+                            android:text="0"
                             android:gravity="center"
                             android:id="@+id/count"
                             android:background="@drawable/shape"

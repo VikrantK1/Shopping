@@ -46,9 +46,8 @@ public class Login extends Fragment {
 Activity mactivity;
 
 EditText email,password;
-TextView createAccount,loginText;
+TextView createAccount;
 Button login;
-Shader textshader;
 FirebaseAuth authLogin=FirebaseAuth.getInstance();
 FirebaseFirestore store=FirebaseFirestore.getInstance();
     public Login() {
@@ -64,13 +63,8 @@ FirebaseFirestore store=FirebaseFirestore.getInstance();
         mactivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         email=v.findViewById(R.id.emailLogin);
         password=v.findViewById(R.id.password_Login);
-        loginText=v.findViewById(R.id.logintext);
         createAccount=v.findViewById(R.id.goToCreateAccount);
         login=v.findViewById(R.id.login);
-        float width=loginText.getPaint().measureText("Login");
-        textshader=new LinearGradient(0,0,width, loginText.getTextSize(),ContextCompat.getColor(getContext(),R.color.gradientup)
-        ,ContextCompat.getColor(getContext(),R.color.gradientdown),Shader.TileMode.CLAMP);
-        loginText.getPaint().setShader(textshader);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

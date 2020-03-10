@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape android:shape="ring"
+<shape android:shape="oval"
     android:innerRadius="90dp"
-    android:thickness="4dp"
-   android:useLevel="false"    xmlns:android="http://schemas.android.com/apk/res/android" >
-<solid android:color="@color/gradientup"/>
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<solid android:color="#ffff"/>
 </shape>

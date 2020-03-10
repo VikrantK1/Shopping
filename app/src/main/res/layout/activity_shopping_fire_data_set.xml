@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background"
     tools:context=".activity.shopping_fire_data_set">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -31,17 +32,35 @@
         android:id="@+id/nameOfProduct"
         android:textSize="20dp"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:paddingStart="10dp"
-        android:background="@drawable/editround"
-        android:id="@+id/distanceFromCounter"
-        style="@style/EditTextStyle"
-        android:hint="Distance from counter"
-        android:inputType="numberDecimal"
-        android:textSize="20dp" />
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_margin="15dp"
+            android:paddingStart="10dp"
+            android:background="@drawable/editround"
+            android:id="@+id/distanceFromCounter"
+            style="@style/EditTextStyle"
+            android:hint="Distance"
+            android:inputType="numberDecimal"
+            android:textSize="20dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:layout_margin="15dp"
+            android:paddingStart="10dp"
+            android:background="@drawable/editround"
+            android:id="@+id/floor"
+            style="@style/EditTextStyle"
+            android:hint="Floor No"
+            android:inputType="numberDecimal"
+            android:textSize="20dp" />
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"

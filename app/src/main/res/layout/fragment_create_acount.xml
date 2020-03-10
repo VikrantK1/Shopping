@@ -1,46 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/gradientlogin"
     >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#ffffff"
     android:clickable="true"
     tools:context=".fragment.Login">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New User"
-        android:id="@+id/newuser45"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:textColor="#4E62B6"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:layout_width="100dp"-->
+<!--        android:background="#ffffff"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--       android:layout_marginStart="19dp"-->
+<!--        app:backgroundTint="#ffffff"-->
+<!--        android:foreground="@drawable/addperson"-->
+<!--        android:layout_marginBottom="20dp"-->
+<!--        bo-->
+<!--        app:borderWidth="5dp"-->
+<!--        android:layout_height="100dp">-->
+<!--    </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="100dp"
+        android:id="@+id/userImgUpdate"
+        android:src="@drawable/splashimg"
+        android:layout_gravity="center"
         />
+        <ImageView
+            android:padding="10dp"
+            android:layout_marginTop="-30dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#ffff"
+            android:id="@+id/signUpProfile"
+            android:background="@drawable/userring"
+            android:src="@drawable/addperson"/>
+
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:paddingStart="10dp"
-        android:background="@drawable/editround"
+        android:layout_margin="5dp"
+        android:paddingStart="30dp"
         android:id="@+id/Name"
-        style="@style/EditTextStyle"
+        style="@style/loginTextstyle"
         android:hint="Enter Name"
         android:inputType="textPersonName"
         android:textSize="20dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/editround"
+        android:layout_margin="5dp"
         android:hint="Enter Email"
-        android:paddingStart="10dp"
-        style="@style/EditTextStyle"
+        android:paddingStart="30dp"
+        style="@style/loginTextstyle"
         android:id="@+id/Email"
         android:inputType="textEmailAddress"
         android:textSize="20dp"/>
@@ -48,29 +73,28 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:paddingStart="10dp"
-        android:background="@drawable/editround"
+        android:layout_margin="5dp"
+        android:paddingStart="30dp"
         android:id="@+id/Password"
-        style="@style/EditTextStyle"
+        style="@style/loginTextstyle"
         android:hint="Enter Password"
         android:inputType="textPassword"
         android:textSize="20dp" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:paddingStart="10dp"
-        android:background="@drawable/editround"
+        android:layout_margin="5dp"
+        android:paddingStart="30dp"
         android:id="@+id/ConfirmPassword"
-        style="@style/EditTextStyle"
+        style="@style/loginTextstyle"
         android:hint="Enter Confirm Password"
         android:inputType="textPassword"
         android:textSize="20dp" />
         <Button
-            android:layout_width="170dp"
+            android:layout_width="240dp"
             android:layout_height="40dp"
-            android:text="Submit"
+            android:text="SignUp"
+            android:layout_marginTop="20dp"
             android:id="@+id/submitC"
             android:textColor="#FFFFFF"
             style="@style/button"
@@ -81,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/gradientdown"
+        android:textColor="#ffffff"
         android:textSize="20sp"
         android:text="Already Have Account"
         android:id="@+id/backToLogin"

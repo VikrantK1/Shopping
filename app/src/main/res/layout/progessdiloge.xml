@@ -3,8 +3,11 @@
     android:orientation="vertical" android:layout_width="110dp"
     android:gravity="center"
     android:layout_height="110dp">
-<ProgressBar
-    android:layout_width="100dp"
-    android:indeterminateTint="@color/gradientdown"
-    android:layout_height="100dp"/>
+
+    <ProgressBar
+        android:layout_width="330dp"
+        android:layout_height="100dp"
+        android:indeterminateDrawable="@drawable/progessgradient"
+        android:indeterminateDuration="@android:integer/config_mediumAnimTime"
+        />
 </LinearLayout>
