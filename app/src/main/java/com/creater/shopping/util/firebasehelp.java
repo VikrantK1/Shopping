@@ -16,23 +16,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class firebasehelp {
-   public static FirebaseAuth auth=FirebaseAuth.getInstance();
-    public static FirebaseFirestore store=FirebaseFirestore.getInstance();
-     static String data23;
-    public static String checkDashboard()
-    {
+    public static FirebaseAuth auth = FirebaseAuth.getInstance();
+    public static FirebaseFirestore store = FirebaseFirestore.getInstance();
+    static String data23;
+
+    public static String checkDashboard() {
 
         store.collection("User").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot data=task.getResult();
-                if (data.getString("Admin").equals("yes"))
-                {
-                   data23="yes" ;
-                }
-                else if (data.getString("Admin").equals("no"))
-                {
-                   data23="no";
+                DocumentSnapshot data = task.getResult();
+                if (data.getString("Admin").equals("yes")) {
+                    data23 = "yes";
+                } else if (data.getString("Admin").equals("no")) {
+                    data23 = "no";
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

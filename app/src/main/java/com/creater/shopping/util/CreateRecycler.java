@@ -18,46 +18,46 @@ import java.util.ArrayList;
 
 public class CreateRecycler extends RecyclerView.Adapter<CreateRecycler.Holder> {
     Context mcontext;
-    ArrayList<String > list23;
- public  ArrayList<String>created=new ArrayList<>();
-  public CreateRecycler()
-  {
+    ArrayList<String> list23;
+    public ArrayList<String> created = new ArrayList<>();
 
-  }
-    public CreateRecycler(Context context, ArrayList<String> list)
-    {
-        this.mcontext=context;
-        this.list23=list;
+    public CreateRecycler() {
+
     }
+
+    public CreateRecycler(Context context, ArrayList<String> list) {
+        this.mcontext = context;
+        this.list23 = list;
+    }
+
     @NonNull
     @Override
     public CreateRecycler.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.createlistrow,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.createlistrow, parent, false);
         return new Holder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final CreateRecycler.Holder holder, final int position) {
-    holder.textView.setText(list23.get(position));
-    holder.cardView.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-               if (!created.contains(list23.get(position)))
-               {
-                   created.add(list23.get(position));
-               }
-               holder.imageView.setVisibility(View.VISIBLE);
-               holder.cardView.setCardBackgroundColor(Color.parseColor("#7791e0"));
-               holder.imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    created.remove(list23.get(position));
-                    holder.imageView.setVisibility(View.INVISIBLE);
-                    holder.cardView.setCardBackgroundColor(Color.WHITE);
+        holder.textView.setText(list23.get(position));
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!created.contains(list23.get(position))) {
+                    created.add(list23.get(position));
                 }
-            });
-        }
-    });
+                holder.imageView.setVisibility(View.VISIBLE);
+                holder.cardView.setCardBackgroundColor(Color.parseColor("#7791e0"));
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        created.remove(list23.get(position));
+                        holder.imageView.setVisibility(View.INVISIBLE);
+                        holder.cardView.setCardBackgroundColor(Color.WHITE);
+                    }
+                });
+            }
+        });
 
     }
 
@@ -67,14 +67,15 @@ public class CreateRecycler extends RecyclerView.Adapter<CreateRecycler.Holder> 
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-     TextView textView;
-     CardView cardView;
-     ImageView imageView;
+        TextView textView;
+        CardView cardView;
+        ImageView imageView;
+
         public Holder(@NonNull View itemView) {
             super(itemView);
-            textView=itemView.findViewById(R.id.CreateData);
-            cardView=itemView.findViewById(R.id.Createcard);
-            imageView=itemView.findViewById(R.id.removeFromCart);
+            textView = itemView.findViewById(R.id.CreateData);
+            cardView = itemView.findViewById(R.id.Createcard);
+            imageView = itemView.findViewById(R.id.removeFromCart);
         }
     }
 }

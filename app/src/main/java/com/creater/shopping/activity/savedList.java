@@ -22,16 +22,17 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class savedList extends AppCompatActivity {
-FirebaseFirestore store=FirebaseFirestore.getInstance();
-FirebaseAuth auth=FirebaseAuth.getInstance();
-Toolbar toolbar;
-public Context context=savedList.this;
+    FirebaseFirestore store = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    Toolbar toolbar;
+    public Context context = savedList.this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_list);
         getSupportActionBar().hide();
-        toolbar=findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
 
         setActionBar(toolbar);
@@ -43,15 +44,4 @@ public Context context=savedList.this;
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        if (firebasehelp.checkDashboard()=="yes")
-        {
-            startActivity(new Intent(savedList.this,DashBoardAdmin.class));
-        }
-        else if (firebasehelp.checkDashboard()=="no")
-        {
-            startActivity(new Intent(savedList.this,Dashboard.class));
-        }
-    }
 }

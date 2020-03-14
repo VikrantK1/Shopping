@@ -20,7 +20,7 @@ import com.creater.shopping.R;
  * A simple {@link Fragment} subclass.
  */
 public class SplashScreen2 extends Fragment {
-Activity mactivity;
+    Activity mactivity;
 
     public SplashScreen2() {
         // Required empty public constructor
@@ -39,6 +39,6 @@ Activity mactivity;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mactivity= (Activity) context;
+        mactivity = (Activity) context;
     }
 }

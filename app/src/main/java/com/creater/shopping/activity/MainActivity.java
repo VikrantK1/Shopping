@@ -31,19 +31,20 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-AutoCompleteTextView text;
-Button submit;
-RecyclerView shopinglist;
-String [] list={"vikr","vata","meta","mata","sata"};
-ArrayList<String> suggestionList=new ArrayList<>();
-ListCreating arrAdapter;
-ImageView addbtn;
-ArrayList<String> shopping=new ArrayList<>();
-FirebaseFirestore db34=FirebaseFirestore.getInstance();
-ArrayAdapter<String> ad;
-Toolbar toolbar;
-backgroundTask task=new backgroundTask();
-ArrayList<String> editlist;
+    AutoCompleteTextView text;
+    Button submit;
+    RecyclerView shopinglist;
+    String[] list = {"vikr", "vata", "meta", "mata", "sata"};
+    ArrayList<String> suggestionList = new ArrayList<>();
+    ListCreating arrAdapter;
+    ImageView addbtn;
+    ArrayList<String> shopping = new ArrayList<>();
+    FirebaseFirestore db34 = FirebaseFirestore.getInstance();
+    ArrayAdapter<String> ad;
+    Toolbar toolbar;
+    backgroundTask task = new backgroundTask();
+    ArrayList<String> editlist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,45 +58,44 @@ ArrayList<String> editlist;
         getSupportActionBar().hide();
         setActionBar(toolbar);
         task.execute();
-        Bundle bundle=getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();
 
-        if (bundle!=null)
-        {
-            editlist=bundle.getStringArrayList("EditList");
+        if (bundle != null) {
+            editlist = bundle.getStringArrayList("EditList");
             shopping.addAll(editlist);
             arrAdapter.notifyDataSetChanged();
 
 
         }
     }
-    public void initilation()
-    {
-        text=findViewById(R.id.addList);
-        toolbar=findViewById(R.id.toolbar);
-        submit=findViewById(R.id.submitM);
-        shopinglist=findViewById(R.id.shoppingList);
-        addbtn=findViewById(R.id.addbtn);
-        arrAdapter=new ListCreating(MainActivity.this,shopping);
+
+    public void initilation() {
+        text = findViewById(R.id.addList);
+        toolbar = findViewById(R.id.toolbar);
+        submit = findViewById(R.id.submitM);
+        shopinglist = findViewById(R.id.shoppingList);
+        addbtn = findViewById(R.id.addbtn);
+        arrAdapter = new ListCreating(MainActivity.this, shopping);
         shopinglist.setLayoutManager(new LinearLayoutManager(this));
         shopinglist.setAdapter(arrAdapter);
 
     }
-    public void editTextFun()
-    {
-        ad=new ArrayAdapter(MainActivity.this,android.R.layout.simple_list_item_1,android.R.id.text1,suggestionList);
+
+    public void editTextFun() {
+        ad = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, android.R.id.text1, suggestionList);
         text.setAdapter(ad);
         text.setThreshold(1);
     }
-    class  backgroundTask extends AsyncTask<Void,Integer,String>
-    {
+
+    class backgroundTask extends AsyncTask<Void, Integer, String> {
 
         @Override
         protected String doInBackground(Void... voids) {
             db34.collection("Shopping list").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for (DocumentSnapshot doc:task.getResult()
-                         ) {
+                    for (DocumentSnapshot doc : task.getResult()
+                    ) {
                         suggestionList.add(doc.getString("ProductName"));
                         ad.notifyDataSetChanged();
                     }
@@ -103,7 +103,7 @@ ArrayList<String> editlist;
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(),"Check Internet Connection",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Check Internet Connection", Toast.LENGTH_SHORT).show();
                 }
             });
             return "Complete";
@@ -111,32 +111,26 @@ ArrayList<String> editlist;
 
 
     }
-    public void addToList()
-    {
-    addbtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-           if (!TextUtils.isEmpty(text.getText().toString()))
-           {
-               if (!shopping.contains(text.getText().toString()))
-               {
-                   shopping.add(text.getText().toString().trim());
-                   arrAdapter.notifyDataSetChanged();
-               }
-               else
-               {
-                   Toast.makeText(getApplicationContext(),"Added before in list",Toast.LENGTH_SHORT).show();
 
-               }
-           }
-           else
-           {
-               text.setError("Enter name First");
-           }
-            text.setText("");
-        }
+    public void addToList() {
+        addbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(text.getText().toString())) {
+                    if (!shopping.contains(text.getText().toString())) {
+                        shopping.add(text.getText().toString().trim());
+                        arrAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Added before in list", Toast.LENGTH_SHORT).show();
 
-    });
+                    }
+                } else {
+                    text.setError("Enter name First");
+                }
+                text.setText("");
+            }
+
+        });
     }
 
 
@@ -145,15 +139,13 @@ ArrayList<String> editlist;
         finish();
     }
 
-    public void SubmitList()
-    {
+    public void SubmitList() {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (shopping.size()!=0)
-                {
-                    Intent intent=new Intent(MainActivity.this,final_list.class);
-                    intent.putStringArrayListExtra("ShoppingList",shopping);
+                if (shopping.size() != 0) {
+                    Intent intent = new Intent(MainActivity.this, final_list.class);
+                    intent.putStringArrayListExtra("ShoppingList", shopping);
                     finish();
                     startActivity(intent);
                 }

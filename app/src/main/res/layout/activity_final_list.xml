@@ -7,22 +7,24 @@
     android:background="@color/background"
     android:orientation="vertical"
     tools:context=".activity.final_list">
+
     <android.widget.Toolbar
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:background="@drawable/splashinverse"
-        android:layout_height="60dp"/>
-<ProgressBar
-    android:layout_width="match_parent"
-    android:layout_height="20dp"
-    style="?android:attr/progressBarStyleHorizontal"
-    android:progress="20"
-    android:indeterminateDrawable="@drawable/splashinverse"
-    android:id="@+id/progess"
-    />
-    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:background="@drawable/splashinverse" />
+
+    <ProgressBar
+        android:id="@+id/progess"
+        android:layout_marginTop="5dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:progress="70"
+        android:progressDrawable="@drawable/linearprogessbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

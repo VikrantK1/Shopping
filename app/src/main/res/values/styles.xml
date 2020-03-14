@@ -13,9 +13,7 @@
        <item name="android:textColorHint">@color/gradientdown</item>
        <item name="android:textColor">@color/gradientdown</item>
    </style>
-  <style name="cardstyle">
-      <item name="android:background">@drawable/userring</item>
-  </style>
+
     <style name="imagview">
         <item name="android:foreground">@drawable/splashinverse</item>
         <item name="android:background">@drawable/add</item>
@@ -30,6 +28,7 @@
         <item name="android:colorActivatedHighlight">#ffffff</item>
         <item name="android:textColorHint">#ffffff</item>
         <item name="android:textColor">#ffffff</item>
+        <item name="android:textCursorDrawable">@drawable/cursorcolor</item>
         <item name="android:background">@drawable/textbordershapelogin</item>
     </style>
 </resources>

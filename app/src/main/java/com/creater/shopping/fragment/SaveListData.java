@@ -38,12 +38,13 @@ import static java.util.Objects.requireNonNull;
  * A simple {@link Fragment} subclass.
  */
 public class SaveListData extends Fragment {
-Activity activity;
-ListView listView;
-FirebaseFirestore store =FirebaseFirestore.getInstance();
-FirebaseAuth auth=FirebaseAuth.getInstance();
-SaveAdapter saveAdapter;
-ArrayList<String> list=new ArrayList<>();
+    Activity activity;
+    ListView listView;
+    FirebaseFirestore store = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    SaveAdapter saveAdapter;
+    ArrayList<String> list = new ArrayList<>();
+
     public SaveListData() {
         // Required empty public constructor
     }
@@ -53,29 +54,29 @@ ArrayList<String> list=new ArrayList<>();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_save_list_data, container, false);
-        listView=v.findViewById(R.id.listview);
-        saveAdapter=new SaveAdapter(activity,list);
+        View v = inflater.inflate(R.layout.fragment_save_list_data, container, false);
+        listView = v.findViewById(R.id.listview);
+        saveAdapter = new SaveAdapter(activity, list);
         listView.setAdapter(saveAdapter);
-   listgenerate();
+        listgenerate();
         return v;
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        activity= (Activity) context;
+        activity = (Activity) context;
     }
-    public void listgenerate()
-    {
-        store.collection("User").document(auth.getCurrentUser().getUid()).collection("List") .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+    public void listgenerate() {
+        store.collection("User").document(auth.getCurrentUser().getUid()).collection("List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot doc:task.getResult()
+                for (QueryDocumentSnapshot doc : task.getResult()
                 ) {
-                  list.add(doc.getId());
+                    list.add(doc.getId());
                     //Collections.reverse(list);
-                     saveAdapter.notifyDataSetChanged();
+                    saveAdapter.notifyDataSetChanged();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -86,7 +87,6 @@ ArrayList<String> list=new ArrayList<>();
         });
 
     }
-
 
 
 }

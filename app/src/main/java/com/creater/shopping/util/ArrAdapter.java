@@ -23,21 +23,23 @@ public class ArrAdapter extends ArrayAdapter {
     Context mcontext;
     AlertDialog.Builder builder;
     AlertDialog dialog;
+
     public ArrAdapter(@NonNull Context context, ArrayList<String> objects) {
         super(context, R.layout.shopinglist, objects);
-        this.data=objects;
-        this.mcontext=context;
+        this.data = objects;
+        this.mcontext = context;
     }
+
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View v=convertView;
-        LayoutInflater inflater= (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v=inflater.inflate(R.layout.shopinglist,parent,false);
-        TextView textView=v.findViewById(R.id.shopping_data);
+        View v = convertView;
+        LayoutInflater inflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = inflater.inflate(R.layout.shopinglist, parent, false);
+        TextView textView = v.findViewById(R.id.shopping_data);
         textView.setText(data.get(position));
-        CardView cardView=v.findViewById(R.id.shopping_card);
-        builder=new AlertDialog.Builder(mcontext);
+        CardView cardView = v.findViewById(R.id.shopping_card);
+        builder = new AlertDialog.Builder(mcontext);
         builder.setIcon(R.drawable.delete);
         builder.setCancelable(false);
         builder.setTitle("Delete").setMessage("Do you want to Delete from list")
@@ -56,7 +58,7 @@ public class ArrAdapter extends ArrayAdapter {
         cardView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                 AlertDialog dialog=builder.create();
+                AlertDialog dialog = builder.create();
                 dialog.show();
                 return true;
             }
@@ -64,21 +66,21 @@ public class ArrAdapter extends ArrayAdapter {
 
         return v;
     }
-    public void  diloge(final int pos)
-    {
-        builder=new AlertDialog.Builder(mcontext).setIcon(R.drawable.delete).setMessage("Delete the Data")
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                data.remove(pos);
-            }
-        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+    public void diloge(final int pos) {
+        builder = new AlertDialog.Builder(mcontext).setIcon(R.drawable.delete).setMessage("Delete the Data")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        data.remove(pos);
+                    }
+                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 });
-        dialog=builder.create();
+        dialog = builder.create();
         dialog.show();
     }
 }

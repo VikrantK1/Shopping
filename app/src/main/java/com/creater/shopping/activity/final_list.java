@@ -40,48 +40,52 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class final_list extends AppCompatActivity {
-ProgressBar progressBar;
-RecyclerView list;
-ArrayList<String> shopinglist;
-ArrayList<Helper> optimum_List=new ArrayList<>();
-ArrayList<String> templist=new ArrayList<>();
-RecyclerAdapter adapter;
-int count=1;
-Toolbar toolbar;
-AlertDialog.Builder builder;
-AlertDialog dialog;
-EditText text;
-FirebaseAuth auth=FirebaseAuth.getInstance();
-FirebaseFirestore db23=FirebaseFirestore.getInstance();
+    ProgressBar progressBar;
+    RecyclerView list;
+    ArrayList<String> shopinglist;
+    ArrayList<Helper> optimum_List = new ArrayList<>();
+    ArrayList<String> templist = new ArrayList<>();
+    RecyclerAdapter adapter;
+    int count = 1;
+    Toolbar toolbar;
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    EditText text;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseFirestore db23 = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final_list);
-        progressBar=findViewById(R.id.progess);
-        list=findViewById(R.id.recyclerView);
-        toolbar=findViewById(R.id.toolbar);
+        progressBar = findViewById(R.id.progess);
+        list = findViewById(R.id.recyclerView);
+        toolbar = findViewById(R.id.toolbar);
         getSupportActionBar().hide();
         setActionBar(toolbar);
-        Bundle bundle=getIntent().getExtras();
-        shopinglist=bundle.getStringArrayList("ShoppingList");
-        adapter=new RecyclerAdapter(this,optimum_List);
+        Bundle bundle = getIntent().getExtras();
+        shopinglist = bundle.getStringArrayList("ShoppingList");
+        adapter = new RecyclerAdapter(this, optimum_List);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
-        builder=new AlertDialog.Builder(this);
-      new  optimumListGenerater().execute();
+        builder = new AlertDialog.Builder(this);
+        new optimumListGenerater().execute();
     }
-    class optimumListGenerater extends AsyncTask<Void,Integer,String>
-    {
+
+    class optimumListGenerater extends AsyncTask<Void, Integer, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-           progressBar.setMax(shopinglist.size());
-           progressBar.setVisibility(View.VISIBLE);
-           progressBar.setProgress(0);
+            progressBar.setMax(shopinglist.size());
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(1);
         }
 
         @Override
@@ -94,16 +98,17 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         @Override
         protected String doInBackground(Void... voids) {
 
-            for (int i = 0; i <shopinglist.size(); i++) {
-                db23.collection("Shopping list").whereEqualTo("ProductName",shopinglist.get(i)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            for (int i = 0; i < shopinglist.size(); i++) {
+                db23.collection("Shopping list").whereEqualTo("ProductName", shopinglist.get(i)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot doc:task.getResult())
-                        {
-                            Helper data=new Helper(doc.getString("ProductName"),doc.getString("productDistance"),doc.getString("productDesc"));
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            Helper data = new Helper(doc.getString("ProductName"),
+                                    doc.getString("productDistance"),
+                                    doc.getString("productDesc"),
+                                    doc.getString("productFloor"));
                             optimum_List.add(data);
-
-                            optimum_List=BestPath(optimum_List);
+                            optimum_List = BestPath(optimum_List);
                             adapter.notifyDataSetChanged();
                             publishProgress(count);
                             count++;
@@ -129,23 +134,24 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-             progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
         }
     }
-    public static   ArrayList<Helper>  BestPath(ArrayList<Helper> list)
-    {
-        for (int i = 0; i <list.size() ; i++) {
-            for (int j = i; j <list.size() ; j++) {
-                double data=Double.parseDouble(list.get(i).getProduct_Distance());
-                double dataJ=Double.parseDouble(list.get(j).getProduct_Distance());
-                if (data < dataJ)
-                {
-                    Helper temp=list.get(i);
-                    list.set(i,list.get(j));
-                    list.set(j,temp);
-                }
-            }
-        }
+
+    public static ArrayList<Helper> BestPath(ArrayList<Helper> list) {
+       Comparator<Helper> comparator=new Comparator<Helper>() {
+           @Override
+           public int compare(Helper o1, Helper o2) {
+               int compering=Double.compare(Double.parseDouble(o1.getFloor()),Double.parseDouble(o2.getFloor()));
+               if (compering==0)
+               {
+                   compering=Double.compare(Double.parseDouble(o1.getProduct_Distance()),Double.parseDouble(o2.getProduct_Distance()));
+               }
+               return compering;
+           }
+       };
+       Collections.sort(list,comparator);
+       Collections.reverse(list);
         return list;
     }
 
@@ -154,130 +160,100 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
         super.onStop();
         optimum_List.removeAll(optimum_List);
         finish();
-        Log.i("optmum",optimum_List.size()+"");
+        Log.i("optmum", optimum_List.size() + "");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.optionmenu,menu);
+        getMenuInflater().inflate(R.menu.optionmenu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==R.id.saveFinal)
-        {
-            View v=getLayoutInflater().inflate(R.layout.savediloge,null,false);
-           Button button=v.findViewById(R.id.savedD);
-            text=v.findViewById(R.id.diloge);
+        if (item.getItemId() == R.id.saveFinal) {
+            View v = getLayoutInflater().inflate(R.layout.savediloge, null, false);
+            Button button = v.findViewById(R.id.savedD);
+            text = v.findViewById(R.id.diloge);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String  data=text.getText().toString();
-                    if (TextUtils.isEmpty(data))
-                    {
+                    String data = text.getText().toString();
+                    if (TextUtils.isEmpty(data)) {
                         text.setError("Enter the first");
-                    }
-                    else
-                    {
+                    } else {
                         saveData();
                     }
 
                 }
             });
-           dialog=builder.create();
-           dialog.setView(v);
-           dialog.show();
+            dialog = builder.create();
+            dialog.setView(v);
+            dialog.show();
         }
-        if (item.getItemId()==R.id.EditMenu)
-        {
-            Intent intent=new Intent(final_list.this,MainActivity.class);
-            for (int i = 0; i <optimum_List.size(); i++) {
+        if (item.getItemId() == R.id.EditMenu) {
+            Intent intent = new Intent(final_list.this, MainActivity.class);
+            for (int i = 0; i < optimum_List.size(); i++) {
                 if (!templist.contains(optimum_List.get(i).getProduct_Name())) {
                     templist.add(optimum_List.get(i).getProduct_Name());
                 }
             }
-            intent.putStringArrayListExtra("EditList",templist);
+            intent.putStringArrayListExtra("EditList", templist);
 
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
-    public void saveData()
-    {
-        AlertDialog.Builder builder23=new AlertDialog.Builder(final_list.this);
-        final AlertDialog dialog34=builder23.create();
-        dialog34.setView(getLayoutInflater().inflate(R.layout.progessdiloge,null,false));
-        dialog34.show();
-        Calendar c=Calendar.getInstance();
-        int day=c.get(Calendar.DAY_OF_MONTH);
-        int month=c.get(Calendar.MONTH);
-        int year=c.get(Calendar.YEAR);
-        int hour=c.get(Calendar.HOUR_OF_DAY);
-        int min=c.get(Calendar.MINUTE);
-        int sec=c.get(Calendar.SECOND);
-        month+=1;
-        final StringBuilder builder=new StringBuilder();
-        builder.append(day+"/").append(month+"/").append(year);
 
-         templist.add(builder.toString().trim());
-        for (int i = 0; i <optimum_List.size(); i++) {
+    public void saveData() {
+        AlertDialog.Builder builder23 = new AlertDialog.Builder(final_list.this);
+        final AlertDialog dialog34 = builder23.create();
+        dialog34.setView(getLayoutInflater().inflate(R.layout.progessdiloge, null, false));
+        dialog34.show();
+        Calendar c = Calendar.getInstance();
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int min = c.get(Calendar.MINUTE);
+        int sec = c.get(Calendar.SECOND);
+        month += 1;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(day + "/").append(month + "/").append(year);
+
+        templist.add(builder.toString().trim());
+        for (int i = 0; i < optimum_List.size(); i++) {
             if (!templist.contains(optimum_List.get(i).getProduct_Name())) {
                 templist.add(optimum_List.get(i).getProduct_Name());
             }
         }
 
-        Log.i("Date",builder.toString().trim());
-        final Map<String,ArrayList<String>> values=new HashMap<>();
-        values.put("ListData",templist);
+        Log.i("Date", builder.toString().trim());
+        final Map<String, ArrayList<String>> values = new HashMap<>();
+        values.put("ListData", templist);
         db23.collection("User").document(auth.getCurrentUser().getUid()).collection("List").document(text.getText().toString().trim()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.getResult().exists())
-                {
+                if (task.getResult().exists()) {
                     dialog34.dismiss();
                     text.setError("List is already Exist");
-                }
-                else
-                {
+                } else {
                     db23.collection("User").document(auth.getCurrentUser().getUid()).collection("List").
                             document(text.getText().toString().trim()).set(values).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                           if (task.isSuccessful())
-                           {
-                               Toast.makeText(getApplicationContext(),"List is Saved",Toast.LENGTH_SHORT).show();
-                               dialog.dismiss();
-                               firebasehelp.store.collection("User").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                   @Override
-                                   public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                       DocumentSnapshot data=task.getResult();
-                                       if (data.getString("Admin").equals("yes"))
-                                       {
-                                           dialog34.dismiss();
-                                  startActivity(new Intent(final_list.this,DashBoardAdmin.class));
-                                       }
-                                       else if (data.getString("Admin").equals("no"))
-                                       {
-                                           dialog34.dismiss();
-                                   startActivity(new Intent(final_list.this,Dashboard.class));
-                                       }
-                                   }
-                               }).addOnFailureListener(new OnFailureListener() {
-                                   @Override
-                                   public void onFailure(@NonNull Exception e) {
-
-                                   }
-                               });
-
-                           }
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "List is Saved", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                finish();
+                            }
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             dialog34.dismiss();
-                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
@@ -291,5 +267,6 @@ FirebaseFirestore db23=FirebaseFirestore.getInstance();
 
 
     }
+
 
 }

@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="2dp">
+
     <androidx.cardview.widget.CardView
-        android:layout_width="170dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="7dp"
         android:id="@+id/Createcard"
-        android:layout_height="170dp">
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="7dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
+                android:id="@+id/removeFromCart"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="15dp"
-                android:visibility="invisible"
                 android:src="@drawable/ic_remove_shopping_cart_black_24dp"
-                android:id="@+id/removeFromCart"
-                />
+                android:visibility="invisible" />
+
             <TextView
+                android:id="@+id/CreateData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-               android:layout_centerInParent="true"
+                android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/gradientdown"
-                android:id="@+id/CreateData"
-                android:text="dummy"
                 android:autoSizeTextType="uniform"
-                android:textSize="30dp"/>
+                android:text="dummy"
+                android:textColor="@color/gradientdown"
+                android:textSize="30dp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

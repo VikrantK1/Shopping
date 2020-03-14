@@ -10,10 +10,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,13 +35,17 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 public class DashBoardAdmin extends AppCompatActivity {
-    CardView createList,havingList,savedList,logout,manage;
-    TextView usernameT,count;
+    CardView createList, havingList, savedList, logout, manage;
+    TextView usernameT, count;
     ImageView userimg;
-    FirebaseFirestore username=FirebaseFirestore.getInstance();
-    FirebaseAuth auth=FirebaseAuth.getInstance();
+    ProgressBar progressBar;
+    FirebaseFirestore username = FirebaseFirestore.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,17 +55,19 @@ public class DashBoardAdmin extends AppCompatActivity {
         count();
         onclickEvents();
         getUserName();
+        getDownload();
     }
-    public void idData()
-    {
-        usernameT=findViewById(R.id.Username);
-        createList=findViewById(R.id.createlist1);
-        havingList=findViewById(R.id.havinglist);
-        savedList=findViewById(R.id.savedlist);
-        logout=findViewById(R.id.logoutC);
-        count=findViewById(R.id.count);
-        userimg=findViewById(R.id.userimg);
-        manage=findViewById(R.id.manage);
+
+    public void idData() {
+        usernameT = findViewById(R.id.Username);
+        progressBar = findViewById(R.id.progressProfile);
+        createList = findViewById(R.id.createlist1);
+        havingList = findViewById(R.id.havinglist);
+        savedList = findViewById(R.id.savedlist);
+        logout = findViewById(R.id.logoutC);
+        count = findViewById(R.id.count);
+        userimg = findViewById(R.id.userimg);
+        manage = findViewById(R.id.manage);
         userimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,53 +75,58 @@ public class DashBoardAdmin extends AppCompatActivity {
             }
         });
     }
-    public void captureImage()
-    {
-        Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (intent.resolveActivity(getPackageManager())!=null)
-        {
-            startActivityForResult(intent,123);
+
+    public void captureImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, 123);
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==123)
-        {
+        if (requestCode == 123) {
             Bitmap bitmap = null;
-            Uri selectimg=data.getData();
-            try {
-                bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),selectimg);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (data!=null)
+            {
+                Uri selectimg = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectimg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                uploadimg(bitmap);
             }
-            uploadimg(bitmap);
         }
     }
-    public void uploadimg(Bitmap bitmap)
-    {
-        ByteArrayOutputStream baos=new ByteArrayOutputStream();
-        String uid=firebasehelp.auth.getUid();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,50,baos);
-        StorageReference reference= FirebaseStorage.getInstance().getReference().child("profileimg").child(uid+".jpeg");
+
+    public void uploadimg(final Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        String uid = firebasehelp.auth.getUid();
+        userimg.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        StorageReference reference = FirebaseStorage.getInstance().getReference().child("profileimg").child(uid + ".jpeg");
         reference.putBytes(baos.toByteArray()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if (task.isSuccessful())
-                {
-                    Toast.makeText(getApplicationContext(),"Profile Uploaded",Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Profile Uploaded", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                    userimg.setVisibility(View.VISIBLE);
+                    userimg.setImageBitmap(bitmap);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void onclickEvents()
-    {
+    public void onclickEvents() {
         createList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,72 +162,93 @@ public class DashBoardAdmin extends AppCompatActivity {
             }
         });
     }
-    public void showimg(Uri uri)
-    {
-        Bitmap bitmap = null;
-        try {
-            bitmap=MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+    public void showimg(Uri uri) {
+        if (uri != null) {
+            new profileimg().execute(uri);
         }
-        userimg.setImageBitmap(bitmap);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getDownload();
+    class profileimg extends AsyncTask<Uri, Void, Bitmap> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            userimg.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Bitmap doInBackground(Uri... uris) {
+            Bitmap bitmap = null;
+            try {
+                String url = uris[0].toString();
+                Log.i("url", url);
+                InputStream stream = new URL(url).openStream();
+                bitmap = BitmapFactory.decodeStream(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            progressBar.setVisibility(View.INVISIBLE);
+            userimg.setVisibility(View.VISIBLE);
+            userimg.setImageBitmap(bitmap);
+        }
     }
 
-    public void getDownload()
-    {
-        String uid=firebasehelp.auth.getUid();
-        StorageReference reference=FirebaseStorage.getInstance().getReference("profileimg").child(uid+"jpeg");
+
+    public void getDownload() {
+        String uid = firebasehelp.auth.getUid();
+        FirebaseStorage store = FirebaseStorage.getInstance();
+        StorageReference reference = store.getInstance().getReference().child("profileimg").child(uid + ".jpeg");
         reference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
                     showimg(task.getResult());
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-             Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-    public void getUserName()
-    {
+
+    public void getUserName() {
         username.collection("User").document(auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot data=task.getResult();
+                DocumentSnapshot data = task.getResult();
                 usernameT.setText(data.getString("Name"));
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void count()
-    {
+    public void count() {
         firebasehelp.store.collection("User").document(firebasehelp.auth.getCurrentUser().getUid())
                 .collection("List").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                QuerySnapshot doc=task.getResult();
-                count.setText(""+doc.size());
+                QuerySnapshot doc = task.getResult();
+                count.setText("" + doc.size());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(DashBoardAdmin.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(DashBoardAdmin.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -223,9 +258,8 @@ public class DashBoardAdmin extends AppCompatActivity {
         super.onRestart();
         try {
             count();
-        }catch (Exception e)
-        {
-            Toast.makeText(DashBoardAdmin.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(DashBoardAdmin.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

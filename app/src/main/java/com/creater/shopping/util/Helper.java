@@ -4,11 +4,14 @@ public class Helper {
     String Product_Name;
     String Product_Distance;
     String Discription;
+    String floor;
 
-    public Helper(String productName, String product_Distance, String discription) {
-        Product_Name = productName;
+
+    public Helper(String product_Name, String product_Distance, String discription, String floor) {
+        Product_Name = product_Name;
         Product_Distance = product_Distance;
         Discription = discription;
+        this.floor = floor;
     }
 
     public String getProduct_Name() {
@@ -33,5 +36,13 @@ public class Helper {
 
     public void setDiscription(String discription) {
         Discription = discription;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
     }
 }

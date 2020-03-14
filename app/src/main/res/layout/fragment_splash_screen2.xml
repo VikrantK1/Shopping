@@ -9,24 +9,23 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
+        android:id="@+id/splashimg"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="170dp"
-        android:src="@drawable/splashimg"
-        android:id="@+id/splashimg"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_marginTop="170dp"
+        android:src="@drawable/splashimg" />
+
     <TextView
+        android:id="@+id/SplashText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Shopping List"
-        android:textSize="35dp"
-        android:id="@+id/SplashText"
-        android:textStyle="bold"
-        android:textColor="@color/gradientup"
         android:layout_below="@+id/splashimg"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_gravity="center"
+        android:text="Shopping List"
+        android:textColor="@color/gradientup"
+        android:textSize="35dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

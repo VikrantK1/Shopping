@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <EditText
+        android:id="@+id/diloge"
+        style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:layout_margin="15dp"
-        android:paddingStart="10dp"
         android:background="@drawable/editround"
-        android:id="@+id/diloge"
-        style="@style/EditTextStyle"
         android:hint="Enter the list Name"
         android:inputType="text"
+        android:paddingStart="10dp"
         android:textSize="15dp" />
 
-        <Button
-            android:layout_height="wrap_content"
-            android:text="Submit"
-            android:id="@+id/savedD"
-            style="@style/button"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
-            />
+    <Button
+        android:id="@+id/savedD"
+        style="@style/button"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="15dp"
+        android:text="Submit"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

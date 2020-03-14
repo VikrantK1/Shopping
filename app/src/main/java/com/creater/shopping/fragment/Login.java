@@ -43,13 +43,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
  */
 public class Login extends Fragment {
 
-Activity mactivity;
+    Activity mactivity;
 
-EditText email,password;
-TextView createAccount;
-Button login;
-FirebaseAuth authLogin=FirebaseAuth.getInstance();
-FirebaseFirestore store=FirebaseFirestore.getInstance();
+    EditText email, password;
+    TextView createAccount;
+    Button login;
+    FirebaseAuth authLogin = FirebaseAuth.getInstance();
+    FirebaseFirestore store = FirebaseFirestore.getInstance();
+
     public Login() {
         // Required empty public constructor
     }
@@ -58,96 +59,90 @@ FirebaseFirestore store=FirebaseFirestore.getInstance();
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v=inflater.inflate(R.layout.fragment_login, container, false);
+        View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         mactivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        email=v.findViewById(R.id.emailLogin);
-        password=v.findViewById(R.id.password_Login);
-        createAccount=v.findViewById(R.id.goToCreateAccount);
-        login=v.findViewById(R.id.login);
+        email = v.findViewById(R.id.emailLogin);
+        password = v.findViewById(R.id.password_Login);
+        createAccount = v.findViewById(R.id.goToCreateAccount);
+        login = v.findViewById(R.id.login);
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.splash,new CreateAcount()).commit();
+                getFragmentManager().beginTransaction().setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right).replace(R.id.splash, new CreateAcount()).commit();
+
             }
         });
         login();
         return v;
     }
 
-public void login()
-{
-    login.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        String emaildata=email.getText().toString().trim();
-        String passwordData=password.getText().toString().trim();
-        if (TextUtils.isEmpty(emaildata))
-        {
-            email.setError("Enter the emailAddress");
-            return;
-        }
-        if (TextUtils.isEmpty(passwordData))
-        {
-            password.setError("Enter the Password");
-            return;
-        }
-        if (passwordData.length()<6)
-        {
-            password.setError("Password should be Greater than 6");
-            return;
-        }
-           AlertDialog.Builder builder=new AlertDialog.Builder(mactivity);
-            final AlertDialog dialog=builder.create();
-            dialog.setView(getLayoutInflater().inflate(R.layout.progessdiloge,null,false));
-            dialog.show();
+    public void login() {
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emaildata = email.getText().toString().trim();
+                String passwordData = password.getText().toString().trim();
+                if (TextUtils.isEmpty(emaildata)) {
+                    email.setError("Enter the emailAddress");
+                    return;
+                }
+                if (TextUtils.isEmpty(passwordData)) {
+                    password.setError("Enter the Password");
+                    return;
+                }
+                if (passwordData.length() < 6) {
+                    password.setError("Password should be Greater than 6");
+                    return;
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(mactivity);
+                final AlertDialog dialog = builder.create();
+                dialog.setView(getLayoutInflater().inflate(R.layout.progessdiloge, null, false));
+                dialog.show();
 
-        authLogin.signInWithEmailAndPassword(emaildata,passwordData).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful())
-                {
-                    final Intent intent=new Intent(mactivity, Dashboard.class);
-                    store.collection("User").document(authLogin.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot data=task.getResult();
-                            if (data.getString("Admin").equals("yes"))
-                            {
-                                dialog.dismiss();
-                                startActivity(new Intent(mactivity, DashBoardAdmin.class));
-                            }
-                            else if (data.getString("Admin").equals("no"))
-                            {
-                                dialog.dismiss();
-                                startActivity(intent);
-                            }
+                authLogin.signInWithEmailAndPassword(emaildata, passwordData).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            final Intent intent = new Intent(mactivity, Dashboard.class);
+                            store.collection("User").document(authLogin.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot data = task.getResult();
+                                    if (data.getString("Admin").equals("yes")) {
+                                        dialog.dismiss();
+                                        startActivity(new Intent(mactivity, DashBoardAdmin.class));
+                                        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                                    } else if (data.getString("Admin").equals("no")) {
+                                        dialog.dismiss();
+                                        startActivity(intent);
+                                        getActivity().overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+                                    }
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(mactivity, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(mactivity, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(mactivity,e.getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                else
-                {
-                    Toast.makeText(mactivity,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-                Toast.makeText(mactivity,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        dialog.dismiss();
+                        Toast.makeText(mactivity, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
-        }
-    });
-}
+    }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mactivity= (Activity) context;
+        mactivity = (Activity) context;
     }
 }

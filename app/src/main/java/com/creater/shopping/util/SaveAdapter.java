@@ -36,25 +36,25 @@ public class SaveAdapter extends ArrayAdapter {
     AlertDialog dialog;
     Context mcotext;
     ArrayList<String> data;
+
     public SaveAdapter(@NonNull Context context, @NonNull ArrayList<String> objects) {
-        super(context, R.layout.savelistrow,objects);
-        this.mcotext=context;
-        this.data=objects;
+        super(context, R.layout.savelistrow, objects);
+        this.mcotext = context;
+        this.data = objects;
     }
 
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-      View v;
-        LayoutInflater inflater= (LayoutInflater) mcotext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        v=inflater.inflate(R.layout.savelistrow,parent,false);
+        View v;
+        LayoutInflater inflater = (LayoutInflater) mcotext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = inflater.inflate(R.layout.savelistrow, parent, false);
 
-        TextView listname=v.findViewById(R.id.listName);
-        final RelativeLayout listrow=v.findViewById(R.id.saveRow);
-        final TextView date=v.findViewById(R.id.listDate);
+        TextView listname = v.findViewById(R.id.listName);
+        final RelativeLayout listrow = v.findViewById(R.id.saveRow);
+        final TextView date = v.findViewById(R.id.listDate);
         listname.setText(data.get(position));
-        if (TextUtils.isEmpty(date.getText()))
-        {
+        if (TextUtils.isEmpty(date.getText())) {
             listrow.setClickable(false);
         }
         firebasehelp.store.collection("User").document(firebasehelp.auth.getCurrentUser()
@@ -62,17 +62,17 @@ public class SaveAdapter extends ArrayAdapter {
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-               DocumentSnapshot doc=task.getResult();
-                ArrayList<String> dat= (ArrayList<String>) doc.get("ListData");
-               date.setText(dat.get(0));
-               listrow.setClickable(true);
+                DocumentSnapshot doc = task.getResult();
+                ArrayList<String> dat = (ArrayList<String>) doc.get("ListData");
+                date.setText(dat.get(0));
+                listrow.setClickable(true);
                 dat.remove(0);
-                final ArrayList<String> list=dat;
+                final ArrayList<String> list = dat;
                 listrow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent=new Intent(mcotext, final_list.class);
-                        intent.putStringArrayListExtra("ShoppingList",list);
+                        Intent intent = new Intent(mcotext, final_list.class);
+                        intent.putStringArrayListExtra("ShoppingList", list);
                         mcotext.startActivity(intent);
                     }
                 });
@@ -89,16 +89,16 @@ public class SaveAdapter extends ArrayAdapter {
 
         return v;
     }
-    public void  diloge(final int pos)
-    {
-        builder=new AlertDialog.Builder(mcotext).setIcon(R.drawable.delete).setMessage("Delete the Data")
+
+    public void diloge(final int pos) {
+        builder = new AlertDialog.Builder(mcotext).setIcon(R.drawable.delete).setMessage("Delete the Data")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        AlertDialog.Builder builder=new AlertDialog.Builder(mcotext);
-                         final AlertDialog dialog23=builder.create();
-                        LayoutInflater inflater= (LayoutInflater) mcotext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        View v=inflater.inflate(R.layout.progessdiloge,null,false);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mcotext);
+                        final AlertDialog dialog23 = builder.create();
+                        LayoutInflater inflater = (LayoutInflater) mcotext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                        View v = inflater.inflate(R.layout.progessdiloge, null, false);
                         dialog23.setView(v);
                         dialog23.show();
                         firebasehelp.store.collection("User").document(firebasehelp.auth.getCurrentUser().getUid())
@@ -112,7 +112,7 @@ public class SaveAdapter extends ArrayAdapter {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(mcotext,e.getMessage(),Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mcotext, e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -123,7 +123,7 @@ public class SaveAdapter extends ArrayAdapter {
 
                     }
                 });
-        dialog=builder.create();
+        dialog = builder.create();
         dialog.show();
     }
 

@@ -6,85 +6,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
-    tools:context=".activity.shopping_fire_data_set">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.shopping_fire_data_set">
-    <android.widget.Toolbar
-        android:layout_width="match_parent"
-        android:id="@+id/toolbar"
-        android:background="@drawable/splashinverse"
-        android:layout_height="50dp"/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/editround"
-        android:hint="Product Name"
-        android:paddingStart="10dp"
-        style="@style/EditTextStyle"
-        android:id="@+id/nameOfProduct"
-        android:textSize="20dp"/>
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-        <EditText
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activity.shopping_fire_data_set">
+
+        <android.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_weight="1"
+            android:layout_height="50dp"
+            android:background="@drawable/splashinverse" />
+
+        <EditText
+            android:id="@+id/nameOfProduct"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="15dp"
-            android:paddingStart="10dp"
             android:background="@drawable/editround"
-            android:id="@+id/distanceFromCounter"
-            style="@style/EditTextStyle"
-            android:hint="Distance"
-            android:inputType="numberDecimal"
-            android:textSize="20dp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="50dp"
-            android:layout_margin="15dp"
+            android:hint="Product Name"
             android:paddingStart="10dp"
-            android:background="@drawable/editround"
-            android:id="@+id/floor"
-            style="@style/EditTextStyle"
-            android:hint="Floor No"
-            android:inputType="numberDecimal"
             android:textSize="20dp" />
-    </LinearLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="198dp"
-        android:layout_margin="15dp"
-        android:paddingTop="5dp"
-        android:background="@drawable/editround"
-        android:id="@+id/descriptionOfProduct"
-        android:paddingStart="10dp"
-        android:gravity="top|left"
-        style="@style/EditTextStyle"
-        android:hint="Description and location"
-        android:inputType="textMultiLine"
-        android:lines="6"
-        android:minLines="3"
-        android:textSize="20dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/distanceFromCounter"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/editround"
+                android:hint="Distance"
+                android:inputType="numberDecimal"
+                android:paddingStart="10dp"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/floor"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/editround"
+                android:hint="Floor No"
+                android:inputType="numberDecimal"
+                android:paddingStart="10dp"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/descriptionOfProduct"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="198dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/editround"
+            android:gravity="top|left"
+            android:hint="Description and location"
+            android:inputType="textMultiLine"
+            android:lines="6"
+            android:minLines="3"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:textSize="20dp" />
 
         <Button
-            android:layout_height="wrap_content"
-            android:text="Submit"
             android:id="@+id/submitS"
             style="@style/button"
-            android:textColor="#FFFFFF"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            />
-</LinearLayout>
-    </ScrollView>
+            android:text="Submit"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>

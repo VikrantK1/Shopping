@@ -27,68 +27,54 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashScreen extends AppCompatActivity {
-Button manage;
-    String permissions[]={Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE};
-    FirebaseAuth authLogin=FirebaseAuth.getInstance();
-    Handler handler=new Handler();
+    FirebaseAuth authLogin = FirebaseAuth.getInstance();
+    Handler handler = new Handler();
     Runnable r;
-    FirebaseFirestore store=FirebaseFirestore.getInstance();
+    FirebaseFirestore store = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash_screen);
         getSupportActionBar().hide();
 
-
-        setContentView(R.layout.activity_splash_screen);
-   //     getSupportFragmentManager().beginTransaction().add(R.id.splash,new SplashScreen2()).commit();
-//         manage=findViewById(R.id.manage);
-//         manage.setOnClickListener(new View.OnClickListener() {
-//             @Override
-//             public void onClick(View v) {
-//                 startActivity(new Intent(SplashScreen.this,shopping_fire_data_set.class));
-//             }
-//         });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-         r=new Runnable() {
+        r = new Runnable() {
             @Override
             public void run() {
-                Login login=new Login();
-                if (authLogin.getCurrentUser()!=null)
-                {
+                Login login = new Login();
+                if (authLogin.getCurrentUser() != null) {
                     store.collection("User").document(authLogin.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot data=task.getResult();
-                            if (data.getString("Admin").equals("yes"))
-                            {
-                             startActivity(new Intent(SplashScreen.this,DashBoardAdmin.class));
-                            }
-                            else if (data.getString("Admin").equals("no"))
-                            {
-                                startActivity(new Intent(SplashScreen.this,Dashboard.class));
+                            DocumentSnapshot data = task.getResult();
+                            if (data.getString("Admin").equals("yes")) {
+                                startActivity(new Intent(SplashScreen.this, DashBoardAdmin.class));
+                                overridePendingTransition(R.anim.zoomin,R.anim.zoomout);
+                            } else if (data.getString("Admin").equals("no")) {
+                                startActivity(new Intent(SplashScreen.this, Dashboard.class));
+                                overridePendingTransition(R.anim.zoomin,R.anim.zoomout);
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
 
-                }
-                else
-                {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.splash,login).commit();
+                } else {
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right).replace(R.id.splash, login).commit();
                 }
 
             }
         };
 
-        handler.postDelayed(r,3000);
+        handler.postDelayed(r, 3000);
     }
 
     @Override
@@ -96,19 +82,6 @@ Button manage;
         super.onStop();
         handler.removeCallbacks(r);
     }
-    public boolean chechPermission(String [] permissions, Context con)
-    {
-        boolean checked=true;
-        for (String permis:permissions
-             ) {
-              int res=con.checkCallingOrSelfPermission(permis);
-              if (res!= PackageManager.PERMISSION_GRANTED)
-              {
-                  checked=false;
-                  break;
-              }
-        }
 
-        return checked;
-    }
+
 }

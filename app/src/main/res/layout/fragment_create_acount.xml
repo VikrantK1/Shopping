@@ -1,117 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/gradientlogin"
-    >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:clickable="true"
-    tools:context=".fragment.Login">
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="100dp"-->
-<!--        android:background="#ffffff"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--       android:layout_marginStart="19dp"-->
-<!--        app:backgroundTint="#ffffff"-->
-<!--        android:foreground="@drawable/addperson"-->
-<!--        android:layout_marginBottom="20dp"-->
-<!--        bo-->
-<!--        app:borderWidth="5dp"-->
-<!--        android:layout_height="100dp">-->
-<!--    </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
+    android:background="@drawable/gradientlogin">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical"
+        tools:context=".fragment.Login">
+        <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--        android:layout_width="100dp"-->
+        <!--        android:background="#ffffff"-->
+        <!--        android:layout_marginTop="50dp"-->
+        <!--       android:layout_marginStart="19dp"-->
+        <!--        app:backgroundTint="#ffffff"-->
+        <!--        android:foreground="@drawable/addperson"-->
+        <!--        android:layout_marginBottom="20dp"-->
+        <!--        bo-->
+        <!--        app:borderWidth="5dp"-->
+        <!--        android:layout_height="100dp">-->
+        <!--    </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
 
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="100dp"
-        android:id="@+id/userImgUpdate"
-        android:src="@drawable/splashimg"
-        android:layout_gravity="center"
-        />
         <ImageView
-            android:padding="10dp"
-            android:layout_marginTop="-30dp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="#ffff"
-            android:id="@+id/signUpProfile"
-            android:background="@drawable/userring"
-            android:src="@drawable/addperson"/>
+            android:id="@+id/userImgUpdate"
+            android:layout_width="250dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/splashimg" />
 
+        <EditText
+            android:id="@+id/Name"
+            style="@style/loginTextstyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:hint="Enter Name"
+            android:inputType="textPersonName"
+            android:paddingStart="30dp"
+            android:textSize="20dp" />
 
+        <EditText
+            android:id="@+id/Email"
+            style="@style/loginTextstyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="30dp"
+            android:textSize="20dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:paddingStart="30dp"
-        android:id="@+id/Name"
-        style="@style/loginTextstyle"
-        android:hint="Enter Name"
-        android:inputType="textPersonName"
-        android:textSize="20dp" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:hint="Enter Email"
-        android:paddingStart="30dp"
-        style="@style/loginTextstyle"
-        android:id="@+id/Email"
-        android:inputType="textEmailAddress"
-        android:textSize="20dp"/>
+        <EditText
+            android:id="@+id/Password"
+            style="@style/loginTextstyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:hint="Enter Password"
+            android:inputType="textPassword"
+            android:paddingStart="30dp"
+            android:textSize="20dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:paddingStart="30dp"
-        android:id="@+id/Password"
-        style="@style/loginTextstyle"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        android:textSize="20dp" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:paddingStart="30dp"
-        android:id="@+id/ConfirmPassword"
-        style="@style/loginTextstyle"
-        android:hint="Enter Confirm Password"
-        android:inputType="textPassword"
-        android:textSize="20dp" />
+        <EditText
+            android:id="@+id/ConfirmPassword"
+            style="@style/loginTextstyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:hint="Enter Confirm Password"
+            android:inputType="textPassword"
+            android:paddingStart="30dp"
+            android:textSize="20dp" />
+
         <Button
+            android:id="@+id/submitC"
+            style="@style/button"
             android:layout_width="240dp"
             android:layout_height="40dp"
-            android:text="SignUp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/submitC"
-            android:textColor="#FFFFFF"
-            style="@style/button"
-            android:gravity="center"
             android:layout_gravity="center"
-            />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:text="Already Have Account"
-        android:id="@+id/backToLogin"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"/>
-</LinearLayout>
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="SignUp"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/backToLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Already Have Account"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+    </LinearLayout>
 </ScrollView>

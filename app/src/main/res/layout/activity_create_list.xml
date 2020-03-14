@@ -5,40 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CreateList">
+
     <android.widget.Toolbar
-        android:layout_width="match_parent"
         android:id="@+id/toolbar"
-        android:background="@drawable/splashinverse"
-        android:layout_height="60dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/splashinverse" />
+
     <ProgressBar
         android:id="@+id/progessFull"
-        android:layout_below="@+id/toolbar"
         android:layout_width="50dp"
-        android:layout_centerHorizontal="true"
         android:layout_height="50dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="0dp"
         android:indeterminateDrawable="@drawable/progessgradient"
         android:indeterminateDuration="@android:integer/config_mediumAnimTime"
         android:progress="20"
-        android:visibility="visible"
-        android:layout_marginBottom="0dp" />
+        android:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-    android:layout_width="match_parent"
+        android:id="@+id/recyclerCreate"
 
-        android:layout_below="@+id/progessFull"
-    android:layout_height="wrap_content"
-    android:id="@+id/recyclerCreate"
-    />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progessFull" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="70dp"
         android:backgroundTint="@color/gradientup"
-        android:id="@+id/floatingButton"
-        android:layout_marginRight="20dp"
-        android:src="@drawable/done"
-        />
+        android:src="@drawable/done" />
 
 </RelativeLayout>
