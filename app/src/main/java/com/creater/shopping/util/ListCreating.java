@@ -47,7 +47,7 @@ public class ListCreating extends RecyclerView.Adapter<ListCreating.Holder> {
             @Override
             public boolean onLongClick(View v) {
 
-                Toast.makeText(mcontext, data.get(position) + "is Deleted", Toast.LENGTH_SHORT).show();
+
                 diloge(position);
 
                 return false;

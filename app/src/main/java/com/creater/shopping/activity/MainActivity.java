@@ -11,6 +11,7 @@ import android.graphics.Shader;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 if (shopping.size() != 0) {
                     Intent intent = new Intent(MainActivity.this, final_list.class);
                     intent.putStringArrayListExtra("ShoppingList", shopping);
+                    Log.i("shoppingData",shopping.size()+"");
                     finish();
                     startActivity(intent);
                 }

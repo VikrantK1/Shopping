@@ -79,10 +79,10 @@ public class shopping_fire_data_set extends AppCompatActivity {
                 });
         builder.setCancelable(true);
         Map<String, String> value = new HashMap<>();
-        value.put("ProductName", productName.getText().toString());
-        value.put("productDistance", productDistance.getText().toString());
-        value.put("productDesc", productDesc.getText().toString());
-        value.put("productFloor",productfloor.getText().toString());
+        value.put("ProductName", productName.getText().toString().trim());
+        value.put("productDistance", productDistance.getText().toString().trim());
+        value.put("productDesc", productDesc.getText().toString().trim());
+        value.put("productFloor",productfloor.getText().toString().trim());
         db.collection("Shopping list").add(value).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {

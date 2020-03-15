@@ -72,6 +72,7 @@ public class final_list extends AppCompatActivity {
         setActionBar(toolbar);
         Bundle bundle = getIntent().getExtras();
         shopinglist = bundle.getStringArrayList("ShoppingList");
+
         adapter = new RecyclerAdapter(this, optimum_List);
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
@@ -152,6 +153,7 @@ public class final_list extends AppCompatActivity {
        };
        Collections.sort(list,comparator);
        Collections.reverse(list);
+       Log.i("ListSize",list.size()+"");
         return list;
     }
 
